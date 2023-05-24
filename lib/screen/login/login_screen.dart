@@ -37,6 +37,9 @@ class LoginScreen extends StatelessWidget {
                 Get.toNamed('/registerPage');
               },
               child: const Text('Register')),
+          ElevatedButton(
+              onPressed: () => loginController.handleSignIn(),
+              child: const Text('Google')),
         ],
       ),
     )));

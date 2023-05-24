@@ -15,46 +15,37 @@ class RegisterPage extends StatelessWidget {
         ),
         body: SafeArea(
             child: Center(
-          child: Form(
-            key: registerController.userFormKey,
-            child: Padding(
-              padding: const EdgeInsets.all(12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  TextFormField(
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                TextFormField(
                     keyboardType: TextInputType.name,
                     controller: registerController.nameController,
-                    decoration: const InputDecoration(hintText: 'Name'),
-                  ),
-                  TextFormField(
+                    decoration: const InputDecoration(hintText: 'Name')),
+                TextFormField(
                     keyboardType: TextInputType.emailAddress,
                     controller: registerController.emailController,
-                    decoration: const InputDecoration(hintText: 'Email'),
-                  ),
-                  TextFormField(
+                    decoration: const InputDecoration(hintText: 'Email')),
+                TextFormField(
                     keyboardType: TextInputType.visiblePassword,
                     controller: registerController.passwordController,
-                    decoration: const InputDecoration(hintText: 'password'),
-                  ),
-                  TextFormField(
+                    decoration: const InputDecoration(hintText: 'password')),
+                TextFormField(
                     keyboardType: TextInputType.visiblePassword,
                     controller: registerController.confirmPasswordController,
                     decoration:
-                        const InputDecoration(hintText: 'confirm password'),
-                  ),
-                  TextFormField(
+                        const InputDecoration(hintText: 'confirm password')),
+                TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: registerController.phoneController,
-                    decoration: const InputDecoration(hintText: 'phone'),
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        registerController.registerUser();
-                      },
-                      child: const Text('Register')),
-                ],
-              ),
+                    decoration: const InputDecoration(hintText: 'phone')),
+                ElevatedButton(
+                    onPressed: () => registerController.registerUser(),
+                    child: const Text('Register')),
+               
+              ],
             ),
           ),
         )));

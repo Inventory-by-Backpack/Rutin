@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class RegisterController extends GetxController {
-  late GlobalKey<FormState> userFormKey = GlobalKey();
-
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -17,28 +15,26 @@ class RegisterController extends GetxController {
       try {
         final credential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text)
-            .then((value) {
-          return FirebaseFirestore.instance
+                email: emailController.text, password: passwordController.text);
+        if (credential.user != null) {
+          await credential.user?.updateDisplayName(nameController.text);
+          await FirebaseFirestore.instance
               .collection('users')
-              .doc(value.user!.uid)
+              .doc(credential.user!.uid)
               .set({
             'email': emailController.text,
             'phone': phoneController.text,
             'name': nameController.text,
-            'uid': value.user!.uid
-          }).then((value) {
-            Get.snackbar('User add', 'User added successfully',
-                backgroundColor: Colors.green,
-                snackPosition: SnackPosition.BOTTOM,
-                colorText: Colors.white);
-            emailController.clear();
-            phoneController.clear();
-            passwordController.clear();
-            userFormKey.currentState!.reset();
+            'uid': credential.user!.uid,
+            'profilePicture': '',
           });
-        });
-        if (credential.user != null) {
+          Get.snackbar('User add', 'User added successfully',
+              backgroundColor: Colors.green,
+              snackPosition: SnackPosition.BOTTOM,
+              colorText: Colors.white);
+          emailController.clear();
+          phoneController.clear();
+          passwordController.clear();
           Get.toNamed('/homePage');
         } else {
           Get.snackbar('Error', 'Error');
@@ -49,13 +45,20 @@ class RegisterController extends GetxController {
         } else if (e.code == 'email-already-in-use') {
           Get.snackbar('Error', 'The account already exists for that email.');
         }
-        Get.snackbar('Not added user', e.message.toString(),
-            backgroundColor: Colors.red,
-            colorText: Colors.white,
-            icon: const Icon(Icons.error, color: Colors.white));
       }
     } else {
       Get.snackbar('Error', 'Password not match');
     }
+  }
+
+  String validateMobile(String value) {
+    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
+    RegExp regExp = RegExp(pattern);
+    if (value.isEmpty) {
+      return 'Please enter mobile number';
+    } else if (!regExp.hasMatch(value)) {
+      return 'Please enter valid mobile number';
+    }
+    return 'Sikik';
   }
 }
