@@ -14,13 +14,13 @@ class HomePage extends StatelessWidget {
         title: const Text('Home Page'),
         actions: [
           IconButton(
-              icon: Icon(Icons.login_outlined),
+              icon: const Icon(Icons.login_outlined),
               onPressed: () {
                 loginController.logOut();
               }),
         ],
       ),
-      body: SafeArea(
+      body: const SafeArea(
           child: Center(
         child: Text('HomePage'),
       )),

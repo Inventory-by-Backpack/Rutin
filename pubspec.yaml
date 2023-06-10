@@ -12,6 +12,7 @@ dependencies:
   firebase_core: ^2.13.0
   flutter:
     sdk: flutter
+  flutter_native_splash: ^2.3.0
   get: ^4.6.5
   google_sign_in: ^6.1.0
 
