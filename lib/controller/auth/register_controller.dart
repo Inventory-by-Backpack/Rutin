@@ -5,6 +5,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../../service/rest_log.dart';
 
 class RegisterController extends GetxController {
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _userLoginServies = UserLoginServies();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController nameController = TextEditingController();

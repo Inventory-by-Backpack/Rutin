@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
+import 'package:inventory/screen/login/login_figma.dart';
 
 import '../screen/home/home_screen.dart';
 import '../screen/login/login_screen.dart';
-import '../screen/login/register_scren.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';
@@ -22,9 +22,10 @@ appRoute() => [
         page: () => const LoginScreen(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
-      ),GetPage(
+      ),
+      GetPage(
         name: '/registerPage',
-        page: () => const RegisterPage(),
+        page: () => const Register(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
@@ -34,5 +35,4 @@ appRoute() => [
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
-      
     ];
