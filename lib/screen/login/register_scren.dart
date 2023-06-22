@@ -37,14 +37,13 @@ class RegisterPage extends StatelessWidget {
                     controller: registerController.confirmPasswordController,
                     decoration:
                         const InputDecoration(hintText: 'confirm password')),
-                TextFormField(
+                /* TextFormField(
                     keyboardType: TextInputType.phone,
                     controller: registerController.phoneController,
-                    decoration: const InputDecoration(hintText: 'phone')),
+                    decoration: const InputDecoration(hintText: 'phone')), */
                 ElevatedButton(
                     onPressed: () => registerController.registerUser(),
                     child: const Text('Register')),
-               
               ],
             ),
           ),

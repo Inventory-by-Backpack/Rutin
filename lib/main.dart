@@ -19,6 +19,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FlutterNativeSplash.remove();
     return GetMaterialApp(
       theme: ThemeData(useMaterial3: true),
       title: 'Inventory',

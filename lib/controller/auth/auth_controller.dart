@@ -1,17 +1,27 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
-  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final Future<SharedPreferences> _sharedPreferences =
+      SharedPreferences.getInstance();
   @override
   void onInit() {
     super.onInit();
     userLogin();
   }
 
-  void userLogin() {
-    _auth.authStateChanges().listen((event) {
+  void userLogin() async {
+    final SharedPreferences sharedPreferences = await _sharedPreferences;
+
+    if (sharedPreferences.getString('token') == null) {
+      print('login olmamış');
+      Get.offAllNamed('/loginPage');
+    } else {
+      Get.offAllNamed('/homePage');
+      print('login olmuş');
+    }
+
+    /* _auth.authStateChanges().listen((event) {
       if (kDebugMode) {
         print(event);
       }
@@ -20,6 +30,6 @@ class AuthController extends GetxController {
       } else {
         Get.offAllNamed('/loginPage');
       }
-    });
+    }); */
   }
 }

@@ -4,10 +4,12 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
   void loginUser() async {
     try {
@@ -34,7 +36,10 @@ class LoginController extends GetxController {
   }
 
   void logOut() async {
-    await FirebaseAuth.instance.signOut();
+    final SharedPreferences prefs = await _prefs;
+    prefs.remove('token');
+    Get.offAllNamed('/loginPage');
+    // await FirebaseAuth.instance.signOut();
   }
 
   final GoogleSignIn _googleSignIn = GoogleSignIn(

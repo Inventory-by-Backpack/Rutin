@@ -1,18 +1,47 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import '../../service/rest_log.dart';
 
 class RegisterController extends GetxController {
+  final _userLoginServies = UserLoginServies();
+  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-  TextEditingController phoneController = TextEditingController();
+  //TextEditingController phoneController = TextEditingController();
 
   Future<void> registerUser() async {
-    if (passwordController.text == confirmPasswordController.text) {
-      try {
+    try {
+      final SharedPreferences prefs = await _prefs;
+      if (passwordController.text == confirmPasswordController.text) {
+        final response = await _userLoginServies.postRegister({
+          "name": nameController.text,
+          "email": emailController.text.trim(),
+          "password": passwordController.text,
+        });
+        if (response.statusCode == 200) {
+          final data = jsonDecode(response.body);
+          if (data['code'] == 0) {
+            final token = data['data']['Token'];
+            print(token);
+            prefs.setString('token', token);
+            nameController.clear();
+            emailController.clear();
+            passwordController.clear();
+            confirmPasswordController.clear();
+            Get.offAllNamed('/homePage');
+          } else {
+            Get.snackbar('Error', data['message']);
+          }
+        } else {
+          print(response.body);
+          print(response.statusCode);
+        }
+
+        /* try {
         final credential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(
                 email: emailController.text, password: passwordController.text);
@@ -45,9 +74,12 @@ class RegisterController extends GetxController {
         } else if (e.code == 'email-already-in-use') {
           Get.snackbar('Error', 'The account already exists for that email.');
         }
+      } */
+      } else {
+        Get.snackbar('Error', 'Password not match');
       }
-    } else {
-      Get.snackbar('Error', 'Password not match');
+    } catch (e) {
+      Get.snackbar('Error', '$e');
     }
   }
 
