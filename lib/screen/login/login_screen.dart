@@ -29,7 +29,7 @@ class LoginScreen extends StatelessWidget {
           ),
           ElevatedButton(
               onPressed: () {
-                loginController.loginUser();
+                loginController.loginSwagger();
               },
               child: const Text('Login')),
           ElevatedButton(
@@ -37,9 +37,9 @@ class LoginScreen extends StatelessWidget {
                 Get.toNamed('/registerPage');
               },
               child: const Text('Register')),
-          ElevatedButton(
+          /*  ElevatedButton(
               onPressed: () => loginController.handleSignIn(),
-              child: const Text('Google')),
+              child: const Text('Google')), */
         ],
       ),
     )));

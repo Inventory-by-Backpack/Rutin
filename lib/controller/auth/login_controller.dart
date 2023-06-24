@@ -1,37 +1,55 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
+import 'package:inventory/service/swagger/swagger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
+  late GlobalKey<FormState> loginFormKey;
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final SwaggerTest _swaggerTest = SwaggerTest();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  void loginUser() async {
+  @override
+  void onInit() {
+    super.onInit();
+    loginFormKey = GlobalKey<FormState>();
+    emailController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  void checkLogin() async {
+    final isValid = loginFormKey.currentState!.validate();
+    if (!isValid) {
+      print(isValid);
+
+      return;
+    } else {
+      loginFormKey.currentState!.save();
+      await loginSwagger();
+    }
+  }
+
+  Future<void> loginSwagger() async {
     try {
-      final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
-          email: emailController.text, password: passwordController.text);
-      if (credential.user != null) {
-        Get.toNamed('/homePage');
-      } else {
-        Get.snackbar('Error', 'Error');
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar('Error', 'No user found for that email.');
-        if (kDebugMode) {
-          print('No user found for that email.');
+      await _swaggerTest.login({
+        "email": emailController.text,
+        "password": passwordController.text
+      }).then((value) async {
+        if (value.statusCode == 200) {
+          final body = jsonDecode(value.body);
+          final data = body['data'];
+          _prefs.then((SharedPreferences prefs) {
+            prefs.setString('token', data);
+          }).then((value) => Get.offAllNamed('/homePage'));
+        } else {
+          Get.snackbar('Error', 'Error');
         }
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar('Error', 'Wrong password provided for that user.');
-        if (kDebugMode) {
-          print('Wrong password provided for that user.');
-        }
-      }
+      });
+    } catch (e) {
+      Future.error(e.toString());
     }
   }
 
@@ -42,7 +60,7 @@ class LoginController extends GetxController {
     // await FirebaseAuth.instance.signOut();
   }
 
-  final GoogleSignIn _googleSignIn = GoogleSignIn(
+  /* final GoogleSignIn _googleSignIn = GoogleSignIn(
     scopes: [
       'email',
       'https://www.googleapis.com/auth/contacts.readonly',
@@ -87,5 +105,5 @@ class LoginController extends GetxController {
         print(error);
       }
     }
-  }
+  } */
 }
