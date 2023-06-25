@@ -6,33 +6,26 @@ import 'package:inventory/service/swagger/swagger.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginController extends GetxController {
-  late GlobalKey<FormState> loginFormKey;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   final SwaggerTest _swaggerTest = SwaggerTest();
   final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  @override
-  void onInit() {
-    super.onInit();
-    loginFormKey = GlobalKey<FormState>();
-    emailController = TextEditingController();
-    passwordController = TextEditingController();
-  }
-
   void checkLogin() async {
-    final isValid = loginFormKey.currentState!.validate();
-    if (!isValid) {
-      print(isValid);
-
-      return;
-    } else {
-      loginFormKey.currentState!.save();
+    if (formKey.currentState!.validate()) {
       await loginSwagger();
+    } else {
+      Get.snackbar('Error', 'Please fill in the required fields');
     }
   }
 
   Future<void> loginSwagger() async {
+    Get.defaultDialog(
+      title: "Yükleniyor...",
+      content: const CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     try {
       await _swaggerTest.login({
         "email": emailController.text,
@@ -45,11 +38,12 @@ class LoginController extends GetxController {
             prefs.setString('token', data);
           }).then((value) => Get.offAllNamed('/homePage'));
         } else {
-          Get.snackbar('Error', 'Error');
+          Get.back();
+          _logException('Error', color: Colors.red);
         }
       });
     } catch (e) {
-      Future.error(e.toString());
+      _logException(e.toString(), color: Colors.red);
     }
   }
 
@@ -57,7 +51,16 @@ class LoginController extends GetxController {
     final SharedPreferences prefs = await _prefs;
     prefs.remove('token');
     Get.offAllNamed('/loginPage');
-    // await FirebaseAuth.instance.signOut();
+  }
+
+  void _logException(String message, {Color? color}) {
+    Get.showSnackbar(
+      GetSnackBar(
+          title: message,
+          message: message,
+          duration: const Duration(seconds: 1),
+          backgroundColor: color ?? Colors.red),
+    );
   }
 
   /* final GoogleSignIn _googleSignIn = GoogleSignIn(

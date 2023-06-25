@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:inventory/screen/login/register_figma.dart';
+import 'package:inventory/screen/login/register.dart';
 
 import '../screen/home/home_screen.dart';
-import '../screen/login/login_figma.dart';
+import '../screen/login/forgot_pass.dart';
+import '../screen/login/login.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';
@@ -19,7 +20,7 @@ appRoute() => [
       ),
       GetPage(
         name: '/loginPage',
-        page: () => const RegisterFigma(),
+        page: () => const Login(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),
@@ -32,6 +33,12 @@ appRoute() => [
       GetPage(
         name: '/homePage',
         page: () => const HomePage(),
+        transition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+      GetPage(
+        name: '/forgotPasswordPage',
+        page: () => const ForgotPasswordPage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),

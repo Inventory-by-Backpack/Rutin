@@ -14,7 +14,20 @@ class RegisterController extends GetxController {
   TextEditingController confirmPasswordController = TextEditingController();
   //TextEditingController phoneController = TextEditingController();
 
+  void isValid() {
+    if (formKey.currentState!.validate()) {
+      registerUser();
+    } else {
+      Get.snackbar('Error', 'Please fill in the required fields');
+    }
+  }
+
   Future<void> registerUser() async {
+    Get.defaultDialog(
+      title: "Yükleniyor...",
+      content: const CircularProgressIndicator(),
+      barrierDismissible: false,
+    );
     try {
       final SharedPreferences prefs = await _prefs;
       if (passwordController.text == confirmPasswordController.text) {
@@ -27,71 +40,37 @@ class RegisterController extends GetxController {
           final data = jsonDecode(response.body);
           if (data['code'] == 0) {
             final token = data['data']['Token'];
-            print(token);
             prefs.setString('token', token);
             nameController.clear();
             emailController.clear();
             passwordController.clear();
             confirmPasswordController.clear();
+            Get.back(); //İlk önce dialog kapatılır
             Get.offAllNamed('/homePage');
           } else {
-            Get.snackbar('Error', data['message']);
+            Get.back();
+            _logException(data['message'], color: Colors.red);
           }
         } else {
-          print(response.body);
-          print(response.statusCode);
+          Get.back(); //İlk önce dialog kapatılır
+          _logException('${response.statusCode} Hata', color: Colors.red);
         }
-
-        /* try {
-        final credential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text);
-        if (credential.user != null) {
-          await credential.user?.updateDisplayName(nameController.text);
-          await FirebaseFirestore.instance
-              .collection('users')
-              .doc(credential.user!.uid)
-              .set({
-            'email': emailController.text,
-            'phone': phoneController.text,
-            'name': nameController.text,
-            'uid': credential.user!.uid,
-            'profilePicture': '',
-          });
-          Get.snackbar('User add', 'User added successfully',
-              backgroundColor: Colors.green,
-              snackPosition: SnackPosition.BOTTOM,
-              colorText: Colors.white);
-          emailController.clear();
-          phoneController.clear();
-          passwordController.clear();
-          Get.toNamed('/homePage');
-        } else {
-          Get.snackbar('Error', 'Error');
-        }
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'weak-password') {
-          Get.snackbar('Error', 'The password provided is too weak.');
-        } else if (e.code == 'email-already-in-use') {
-          Get.snackbar('Error', 'The account already exists for that email.');
-        }
-      } */
       } else {
-        Get.snackbar('Error', 'Password not match');
+        Get.back();
+        _logException('Password not mach', color: Colors.red);
       }
     } catch (e) {
-      Get.snackbar('Error', '$e');
+      _logException(e.toString(), color: Colors.red);
     }
   }
 
-  String validateMobile(String value) {
-    String pattern = r'(^(?:[+0]9)?[0-9]{10,12}$)';
-    RegExp regExp = RegExp(pattern);
-    if (value.isEmpty) {
-      return 'Please enter mobile number';
-    } else if (!regExp.hasMatch(value)) {
-      return 'Please enter valid mobile number';
-    }
-    return 'Sikik';
+  void _logException(String message, {Color? color}) {
+    Get.showSnackbar(
+      GetSnackBar(
+          title: message,
+          message: message,
+          duration: const Duration(seconds: 1),
+          backgroundColor: color ?? Colors.red),
+    );
   }
 }
