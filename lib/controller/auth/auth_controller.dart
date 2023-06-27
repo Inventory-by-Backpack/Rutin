@@ -14,11 +14,9 @@ class AuthController extends GetxController {
     final SharedPreferences sharedPreferences = await _sharedPreferences;
 
     if (sharedPreferences.getString('token') == null) {
-      print('login olmamış');
       Get.offAllNamed('/loginPage');
     } else {
       Get.offAllNamed('/homePage');
-      print('login olmuş');
     }
 
     /* _auth.authStateChanges().listen((event) {

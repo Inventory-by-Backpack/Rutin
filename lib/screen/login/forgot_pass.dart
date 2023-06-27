@@ -13,7 +13,7 @@ class ForgotPasswordPage extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
-              SizedBox(height: 50),
+              SizedBox(height: 30),
               Expanded(
                 flex: 3,
                 child: Text(

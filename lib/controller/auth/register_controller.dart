@@ -1,17 +1,18 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-import '../../service/rest_log.dart';
+import '../../service/auth/auth.dart';
 
 class RegisterController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   final _userLoginServies = UserLoginServies();
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
+
+  TextEditingController firstname = TextEditingController();
+  TextEditingController lastname = TextEditingController();
   //TextEditingController phoneController = TextEditingController();
 
   void isValid() {
@@ -29,31 +30,32 @@ class RegisterController extends GetxController {
       barrierDismissible: false,
     );
     try {
-      final SharedPreferences prefs = await _prefs;
       if (passwordController.text == confirmPasswordController.text) {
-        final response = await _userLoginServies.postRegister({
-          "name": nameController.text,
-          "email": emailController.text.trim(),
+        final response = await _userLoginServies.register({
+          "userLoginType": 0,
+          "firstname": firstname.text,
+          "lastname": lastname.text,
+          "email": emailController.text,
+          "gender": 0,
           "password": passwordController.text,
+          "deviceType": 'Ios'
         });
+        final data = jsonDecode(response.body);
+
         if (response.statusCode == 200) {
-          final data = jsonDecode(response.body);
-          if (data['code'] == 0) {
-            final token = data['data']['Token'];
-            prefs.setString('token', token);
-            nameController.clear();
-            emailController.clear();
-            passwordController.clear();
-            confirmPasswordController.clear();
-            Get.back(); //İlk önce dialog kapatılır
-            Get.offAllNamed('/homePage');
-          } else {
-            Get.back();
-            _logException(data['message'], color: Colors.red);
-          }
+          /*  firstname.clear();
+          lastname.clear();
+          emailController.clear();
+          passwordController.clear();
+          confirmPasswordController.clear(); */
+          Get.back(); //İlk önce dialog kapatılır
+
+          _logException(data['message'], color: Colors.green);
+          Get.offAllNamed('/loginPage');
         } else {
           Get.back(); //İlk önce dialog kapatılır
-          _logException('${response.statusCode} Hata', color: Colors.red);
+
+          _logException(data['message'], color: Colors.red);
         }
       } else {
         Get.back();
@@ -65,12 +67,10 @@ class RegisterController extends GetxController {
   }
 
   void _logException(String message, {Color? color}) {
-    Get.showSnackbar(
-      GetSnackBar(
-          title: message,
-          message: message,
-          duration: const Duration(seconds: 1),
-          backgroundColor: color ?? Colors.red),
-    );
+    Get.showSnackbar(GetSnackBar(
+        title: message,
+        message: ' ',
+        duration: const Duration(seconds: 2),
+        backgroundColor: color ?? Colors.red));
   }
 }

@@ -37,8 +37,21 @@ class Register extends StatelessWidget {
                         basliklar('name'),
                         SizedBox(height: 10),
                         MyTextFormField(
-                            controller: registerController.nameController,
-                            hintText: 'Alexis CROWN',
+                            controller: registerController.firstname,
+                            hintText: 'Alexis',
+                            inputType: TextInputType.name,
+                            howValidate: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter some text';
+                              }
+                              return null;
+                            },
+                            privacy: false),
+                        basliklar('Last name'),
+                        SizedBox(height: 10),
+                        MyTextFormField(
+                            controller: registerController.lastname,
+                            hintText: 'CROWN',
                             inputType: TextInputType.name,
                             howValidate: (value) {
                               if (value!.isEmpty) {

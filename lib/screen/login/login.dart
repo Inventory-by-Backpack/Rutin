@@ -77,7 +77,7 @@ class Login extends StatelessWidget {
                         privacy: true),
                     TextButton(
                       onPressed: () {
-                        Get.toNamed('/forgotPassword');
+                        Get.toNamed('/forgotPasswordPage');
                       },
                       child: Text('forgot password?',
                           style: TextStyle(
@@ -103,14 +103,14 @@ class Login extends StatelessWidget {
                             fontWeight: FontWeight.w500),
                       ),
                     ),
-                    MyElevatedButton(
+                    /* MyElevatedButton(
                         string: 'continue with apple', onPressed: () {}),
                     SizedBox(height: 10),
                     MyElevatedButton(
                         string: 'continue with google', onPressed: () {}),
                     SizedBox(height: 10),
                     MyElevatedButton(
-                        string: 'continue with microsoft', onPressed: () {})
+                        string: 'continue with microsoft', onPressed: () {}) */
                   ],
                 ),
               ),
