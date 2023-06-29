@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_controller/home_controller.dart';
-import '../../widgets/bottom_nav_bar.dart';
+import '../../widgets/drawer/drawer.dart';
+import '../../widgets/nav_bar/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -14,6 +15,7 @@ class HomePage extends StatelessWidget {
       length: 3,
       initialIndex: 1,
       child: Obx(() => Scaffold(
+            drawer: DrawerMenu(),
             bottomNavigationBar: BottomNavBar(
                 isElevated: cntrl.isEleveted.value,
                 isVisible: cntrl.isVisible.value),

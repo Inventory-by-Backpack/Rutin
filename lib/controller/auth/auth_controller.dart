@@ -16,6 +16,7 @@ class AuthController extends GetxController {
     if (sharedPreferences.getString('token') == null) {
       Get.offAllNamed('/loginPage');
     } else {
+      print(sharedPreferences.getString('token'));
       Get.offAllNamed('/homePage');
     }
 
