@@ -17,7 +17,7 @@ class HomePage extends StatelessWidget {
       length: 3,
       initialIndex: 1,
       child: Obx(() => Scaffold(
-            drawer: DrawerMenu(),
+            drawer: const DrawerMenu(),
             bottomNavigationBar: BottomNavBar(
                 isElevated: cntrl.isEleveted.value,
                 isVisible: cntrl.isVisible.value),
