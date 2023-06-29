@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_controller/home_controller.dart';
-import '../../widgets/drawer/drawer.dart';
-import '../../widgets/nav_bar/bottom_nav_bar.dart';
+import '../../widgets/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,6 +10,7 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cntrl = Get.put(HomeController());
+    final systemCntrl = Get.put(GeneralSystemController());
     return DefaultTabController(
       length: 3,
       initialIndex: 1,
@@ -24,7 +24,9 @@ class HomePage extends StatelessWidget {
                     tooltip: 'Add New Item',
                     elevation: cntrl.isVisible.value ? 0.0 : null,
                     child: const Icon(Icons.add),
-                    onPressed: () {})
+                    onPressed: () {
+                      systemCntrl.changeTheme();
+                    })
                 : null,
             floatingActionButtonLocation: cntrl.fabLocation,
             appBar: appBar(),
@@ -53,7 +55,6 @@ class HomePage extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Card(
               margin: EdgeInsets.symmetric(vertical: 10),
-              color: Color(0xffEFEFEF),
               child: ListTile(
                 title: Text('Item ${index + 1}'),
                 subtitle: Text('sub title'),
@@ -70,7 +71,6 @@ class HomePage extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) {
           return Card(
               margin: EdgeInsets.symmetric(vertical: 10),
-              color: Color(0xffEFEFEF),
               child: ListTile(
                 title: Text('Item ${index + 1}'),
                 subtitle: Text('sub title'),
@@ -83,7 +83,6 @@ class HomePage extends StatelessWidget {
   AppBar appBar() {
     return AppBar(
         bottom: TabBar(
-            labelColor: Colors.black,
             labelStyle: TextStyle(
                 fontSize: 18,
                 fontFamily: 'Poppins',
