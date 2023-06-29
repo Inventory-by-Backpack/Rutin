@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_controller/home_controller.dart';
+import '../../widgets/bottom_nav_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -12,62 +13,68 @@ class HomePage extends StatelessWidget {
     return DefaultTabController(
       length: 3,
       initialIndex: 1,
-      child: Scaffold(
-          bottomNavigationBar: bottomNavBar(cntrl),
-          appBar: appBar(),
-          body: body()),
+      child: Obx(() => Scaffold(
+            bottomNavigationBar: BottomNavBar(
+                isElevated: cntrl.isEleveted.value,
+                isVisible: cntrl.isVisible.value),
+            floatingActionButton: cntrl.showFab.value
+                ? FloatingActionButton(
+                    tooltip: 'Add New Item',
+                    elevation: cntrl.isVisible.value ? 0.0 : null,
+                    child: const Icon(Icons.add),
+                    onPressed: () {})
+                : null,
+            floatingActionButtonLocation: cntrl.fabLocation,
+            appBar: appBar(),
+            body: body(cntrl),
+          )),
     );
   }
 
-  bottomNavBar(HomeController cntrl) {
-    return Obx(() => BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'Home',
-              backgroundColor: Colors.white,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.business),
-              label: 'Business',
-              backgroundColor: Colors.green,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.school),
-              label: 'School',
-              backgroundColor: Colors.purple,
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings),
-              label: 'Settings',
-              backgroundColor: Colors.pink,
-            ),
-          ],
-          currentIndex: cntrl.selectedIndex.value,
-          selectedItemColor: Colors.grey[500],
-          unselectedItemColor: Colors.grey[300],
-          onTap: cntrl.onItemTapped,
-        ));
+  SafeArea body(HomeController _) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 48.0),
+        child: TabBarView(children: [
+          Icon(Icons.directions_car),
+          quantily(_),
+          loop(_),
+        ]),
+      ),
+    );
   }
 
-  TabBarView body() {
-    return TabBarView(children: [
-      Icon(Icons.directions_car),
-      quantily(),
-      Icon(Icons.directions_bike),
-    ]);
-  }
-
-  Widget quantily() {
+  Widget quantily(HomeController _) {
     return ListView.builder(
+        controller: _.controller,
+        itemCount: 10,
+        itemBuilder: (BuildContext context, int index) {
+          return Card(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              color: Color(0xffEFEFEF),
+              child: ListTile(
+                title: Text('Item ${index + 1}'),
+                subtitle: Text('sub title'),
+                leading: Icon(Icons.ac_unit),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ));
+        });
+  }
+
+  Widget loop(HomeController _) {
+    return ListView.builder(
+        controller: _.controller,
         itemCount: 30,
         itemBuilder: (BuildContext context, int index) {
-          return Container(
-            padding: EdgeInsets.all(10),
-            margin: EdgeInsets.all(10),
-            height: 100,
-            color: Colors.amber[200],
-          );
+          return Card(
+              margin: EdgeInsets.symmetric(vertical: 10),
+              color: Color(0xffEFEFEF),
+              child: ListTile(
+                title: Text('Item ${index + 1}'),
+                subtitle: Text('sub title'),
+                leading: Icon(Icons.ac_unit),
+                trailing: Icon(Icons.arrow_forward_ios),
+              ));
         });
   }
 
