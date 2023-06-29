@@ -5,6 +5,7 @@ import 'package:inventory/screen/login/register.dart';
 import '../screen/home/home_screen.dart';
 import '../screen/login/forgot_pass.dart';
 import '../screen/login/login.dart';
+import '../screen/network/network_screen.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';
@@ -39,6 +40,12 @@ appRoute() => [
       GetPage(
         name: '/forgotPasswordPage',
         page: () => const ForgotPasswordPage(),
+        transition: Transition.leftToRightWithFade,
+        transitionDuration: const Duration(milliseconds: 500),
+      ),
+      GetPage(
+        name: '/networkErrorPage',
+        page: () => const NetworkErrorPage(),
         transition: Transition.leftToRightWithFade,
         transitionDuration: const Duration(milliseconds: 500),
       ),

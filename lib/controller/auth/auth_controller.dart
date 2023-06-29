@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,25 +11,26 @@ class AuthController extends GetxController {
     userLogin();
   }
 
+  Future<bool> checkInternetConnection() async {
+    ConnectivityResult result = await (Connectivity().checkConnectivity());
+    if (result != ConnectivityResult.none) {
+      return true; // İnternet bağlantısı var
+    } else {
+      return false; // İnternet bağlantısı yok
+    }
+  }
+
   void userLogin() async {
     final SharedPreferences sharedPreferences = await _sharedPreferences;
-
-    if (sharedPreferences.getString('token') == null) {
-      Get.offAllNamed('/loginPage');
-    } else {
-      print(sharedPreferences.getString('token'));
-      Get.offAllNamed('/homePage');
-    }
-
-    /* _auth.authStateChanges().listen((event) {
-      if (kDebugMode) {
-        print(event);
-      }
-      if (event != null) {
-        Get.offAllNamed('/homePage');
-      } else {
+    final isResult = await checkInternetConnection();
+    if (!isResult) {
+      if (sharedPreferences.getString('token') == null) {
         Get.offAllNamed('/loginPage');
+      } else {
+        Get.offAllNamed('/homePage');
       }
-    }); */
+    } else {
+      Get.toNamed('/networkErrorPage');
+    }
   }
 }
