@@ -55,4 +55,5 @@ class HomeController extends GetxController {
     controller.dispose();
     super.dispose();
   }
+  
 }
