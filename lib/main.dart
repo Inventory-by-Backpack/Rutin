@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'binding/auth_bindings.dart';
 import 'router/route_manager.dart';
 import 'theme/theme_data.dart';
+import 'translate/local.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
@@ -25,6 +26,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
     return GetMaterialApp(
+      translations: Localization(),
       title: 'Inventory',
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
