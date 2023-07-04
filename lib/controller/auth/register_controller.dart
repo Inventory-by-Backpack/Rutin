@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../service/auth/auth.dart';
+import '../../widgets/snak_bar.dart';
 
 class RegisterController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
@@ -10,7 +12,6 @@ class RegisterController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmPasswordController = TextEditingController();
-
   TextEditingController firstname = TextEditingController();
   TextEditingController lastname = TextEditingController();
   //TextEditingController phoneController = TextEditingController();
@@ -23,12 +24,16 @@ class RegisterController extends GetxController {
     }
   }
 
+  RxString selectGender = "1".obs;
+  void selectGenderFunc(String value) {
+    selectGender.value = value;
+  }
+
   Future<void> registerUser() async {
     Get.defaultDialog(
-      title: "Yükleniyor...",
-      content: const CircularProgressIndicator(),
-      barrierDismissible: false,
-    );
+        title: "wait".tr,
+        content: const CircularProgressIndicator(),
+        barrierDismissible: false);
     try {
       if (passwordController.text == confirmPasswordController.text) {
         final response = await _userLoginServies.register({
@@ -36,12 +41,11 @@ class RegisterController extends GetxController {
           "firstname": firstname.text,
           "lastname": lastname.text,
           "email": emailController.text,
-          "gender": 0,
+          "gender": int.parse(selectGender.value),
           "password": passwordController.text,
-          "deviceType": 'Ios'
+          "deviceType": Platform.operatingSystem
         });
         final data = jsonDecode(response.body);
-
         if (response.statusCode == 200) {
           /*  firstname.clear();
           lastname.clear();
@@ -49,12 +53,10 @@ class RegisterController extends GetxController {
           passwordController.clear();
           confirmPasswordController.clear(); */
           Get.back(); //İlk önce dialog kapatılır
-
           _logException(data['message'], color: Colors.green);
           Get.offAllNamed('/loginPage');
         } else {
           Get.back(); //İlk önce dialog kapatılır
-
           _logException(data['message'], color: Colors.red);
         }
       } else {
@@ -67,10 +69,7 @@ class RegisterController extends GetxController {
   }
 
   void _logException(String message, {Color? color}) {
-    Get.showSnackbar(GetSnackBar(
-        title: message,
-        message: ' ',
-        duration: const Duration(seconds: 2),
-        backgroundColor: color ?? Colors.red));
+    ShowSnackMessage.showSnack(Get.context!,
+        message: message, color: color ?? Colors.red);
   }
 }

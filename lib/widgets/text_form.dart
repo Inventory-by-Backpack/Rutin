@@ -19,15 +19,7 @@ class MyTextFormField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 297,
-      height: 48,
-      decoration: ShapeDecoration(
-        color: Color(0xFFEFEFEF),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-      ),
+    return Card(
       child: TextFormField(
         controller: controller,
         textAlign: TextAlign.center,

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory/widgets/snak_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
@@ -60,18 +61,12 @@ class LoginController extends GetxController {
       });
     } catch (e) {
       Get.back();
-      print(e.toString());
       _logException(e.toString(), color: Colors.red);
     }
   }
 
   void _logException(String message, {Color? color}) {
-    Get.showSnackbar(
-      GetSnackBar(
-          title: message,
-          message: ' ',
-          duration: const Duration(seconds: 1),
-          backgroundColor: color ?? Colors.red),
-    );
+    ShowSnackMessage.showSnack(Get.context!,
+        message: message, color: color ?? Colors.red);
   }
 }
