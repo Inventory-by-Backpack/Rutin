@@ -1,10 +1,12 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
   final Future<SharedPreferences> _sharedPreferences =
       SharedPreferences.getInstance();
+
   @override
   void onInit() {
     super.onInit();
@@ -23,7 +25,7 @@ class AuthController extends GetxController {
   void userLogin() async {
     final SharedPreferences sharedPreferences = await _sharedPreferences;
     final isResult = await checkInternetConnection();
-    if (!isResult) {
+    if (isResult) {
       if (sharedPreferences.getString('token') == null) {
         Get.offAllNamed('/loginPage');
       } else {
@@ -32,5 +34,11 @@ class AuthController extends GetxController {
     } else {
       Get.toNamed('/networkErrorPage');
     }
+  }
+
+  void logout() async {
+    final SharedPreferences sharedPreferences = await _sharedPreferences;
+    sharedPreferences.remove('token');
+    Get.offAllNamed('/loginPage');
   }
 }

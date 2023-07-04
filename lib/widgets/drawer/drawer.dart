@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../controller/auth/auth_controller.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final _ = Get.put(AuthController());
     return Drawer(
       child: ListView(padding: EdgeInsets.zero, children: [
         UserAccountsDrawerHeader(
@@ -26,7 +30,9 @@ class DrawerMenu extends StatelessWidget {
         ListTile(
           leading: Icon(Icons.logout),
           title: Text('Logout'),
-          onTap: () {},
+          onTap: () {
+            _.logout();
+          },
         ),
       ]),
     );
