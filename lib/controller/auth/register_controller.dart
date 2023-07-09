@@ -20,18 +20,19 @@ class RegisterController extends GetxController {
     if (formKey.currentState!.validate()) {
       registerUser();
     } else {
-      Get.snackbar('Error', 'Please fill in the required fields');
+      _logException('please_fill_in_the_required_fields'.tr,
+          color: Colors.red.shade900);
     }
   }
 
-  RxString selectGender = "1".obs;
-  void selectGenderFunc(String value) {
-    selectGender.value = value;
+  RxString? selectGender;
+  void selectGenderFunc(String? value) {
+    selectGender?.value = value.toString();
   }
 
   Future<void> registerUser() async {
     Get.defaultDialog(
-        title: "wait".tr,
+        title: "loading".tr,
         content: const CircularProgressIndicator(),
         barrierDismissible: false);
     try {
@@ -41,7 +42,7 @@ class RegisterController extends GetxController {
           "firstname": firstname.text,
           "lastname": lastname.text,
           "email": emailController.text,
-          "gender": int.parse(selectGender.value),
+          "gender": int.parse(selectGender!.value),
           "password": passwordController.text,
           "deviceType": Platform.operatingSystem
         });
@@ -61,7 +62,7 @@ class RegisterController extends GetxController {
         }
       } else {
         Get.back();
-        _logException('Password not mach', color: Colors.red);
+        _logException('passowrd_not_mach'.tr, color: Colors.red);
       }
     } catch (e) {
       _logException(e.toString(), color: Colors.red);
@@ -71,5 +72,23 @@ class RegisterController extends GetxController {
   void _logException(String message, {Color? color}) {
     ShowSnackMessage.showSnack(Get.context!,
         message: message, color: color ?? Colors.red);
+  }
+
+  String? formValidate(String? value) {
+    if (value!.isEmpty) {
+      return 'please_enter_some_text'.tr;
+    }
+    return null;
+  }
+
+  @override
+  void onClose() {
+    nameController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    confirmPasswordController.dispose();
+    firstname.dispose();
+    lastname.dispose();
+    super.onClose();
   }
 }

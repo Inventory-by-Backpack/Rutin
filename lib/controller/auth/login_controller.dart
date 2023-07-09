@@ -22,13 +22,14 @@ class LoginController extends GetxController {
     if (formKey.currentState!.validate()) {
       await loginSwagger();
     } else {
-      Get.snackbar('Error', 'Please fill in the required fields');
+      _logException('please_fill_in_the_required_fields'.tr,
+          color: Colors.red.shade900);
     }
   }
 
   Future<void> loginSwagger() async {
     Get.defaultDialog(
-      title: "Yükleniyor...",
+      title: "loading".tr,
       content: const CircularProgressIndicator(),
       barrierDismissible: false,
     );
@@ -41,7 +42,7 @@ class LoginController extends GetxController {
         if (value.statusCode == 200) {
           if (data['isSuccess'] == true) {
             Get.back();
-            _logException('Giriş Başarılı', color: Colors.green);
+            _logException('login_success'.tr, color: Colors.green);
             loginModelFromJson(value.body);
             final SharedPreferences prefs = await _prefs;
             prefs.setString('token', data['data']['accessToken']);
@@ -50,7 +51,7 @@ class LoginController extends GetxController {
             Get.back();
             _logException(data['message'], color: Colors.red);
           }
-        } else if (value.statusCode == 400) {
+        } else if (value.statusCode == 401) {
           //Buraya ayrı bir yer gelecek
           Get.back();
           _logException(value.body, color: Colors.red);
@@ -66,7 +67,24 @@ class LoginController extends GetxController {
   }
 
   void _logException(String message, {Color? color}) {
-    ShowSnackMessage.showSnack(Get.context!,
-        message: message, color: color ?? Colors.red);
+    ShowSnackMessage.showSnack(
+      Get.context!,
+      message: message,
+      color: color ?? Colors.red,
+    );
+  }
+
+  String? formValidate(String? value) {
+    if (value!.isEmpty) {
+      return 'please_enter_some_text'.tr;
+    }
+    return null;
+  }
+
+  @override
+  void onClose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.onClose();
   }
 }

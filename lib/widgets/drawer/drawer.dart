@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/auth/auth_controller.dart';
+import '../dialog_widget/dialog_widget.dart';
 
 class DrawerMenu extends StatelessWidget {
   const DrawerMenu({super.key});
@@ -11,30 +12,51 @@ class DrawerMenu extends StatelessWidget {
     final _ = Get.put(AuthController());
     return Drawer(
       child: ListView(padding: EdgeInsets.zero, children: [
-        UserAccountsDrawerHeader(
+        const UserAccountsDrawerHeader(
           accountName: Text('Emir'),
           accountEmail: Text('emirseyhana.z@gmail.com'),
-          currentAccountPicture:
-              CircleAvatar(backgroundColor: Colors.white, child: Text('E')),
+          currentAccountPicture: CircleAvatar(child: Text('E')),
         ),
         ListTile(
-          leading: Icon(Icons.home),
-          title: Text('Home'),
+          leading: const Icon(Icons.home),
+          title: Text('home'.tr),
+          onTap: () => Get.toNamed('/homePage'),
+        ),
+        ListTile(
+          leading: const Icon(Icons.settings),
+          title: Text('settings'.tr),
           onTap: () {},
         ),
         ListTile(
-          leading: Icon(Icons.settings),
-          title: Text('Settings'),
-          onTap: () {},
-        ),
-        ListTile(
-          leading: Icon(Icons.logout),
-          title: Text('Logout'),
+          leading: const Icon(Icons.logout),
+          title: Text('logout'.tr),
           onTap: () {
-            _.logout();
+            cikisDialog(context, _);
           },
         ),
       ]),
     );
+  }
+
+  Future<dynamic> cikisDialog(BuildContext context, AuthController _) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return ShowDialogWidget(
+            title: Text('logout'.tr),
+            content: [Text('sure_logout'.tr)],
+            actions: [
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: () => _.logout(), child: Text('logout'.tr)),
+              ),
+              const SizedBox(width: 10),
+              Expanded(
+                child: ElevatedButton(
+                    onPressed: () => Get.close(1), child: Text('cancel'.tr)),
+              ),
+            ],
+          );
+        });
   }
 }

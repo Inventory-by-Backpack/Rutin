@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+
 import '../../controller/auth/login_controller.dart';
 import '../../widgets/elevated_button.dart';
+import '../../widgets/padding/padding_widget.dart';
 import '../../widgets/text_form.dart';
+import 'widget/login_text_widget.dart';
 
 class Login extends StatelessWidget {
   const Login({super.key});
@@ -14,106 +17,75 @@ class Login extends StatelessWidget {
 
     return Scaffold(
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 40),
+        child: MyPaddingWidget(
           child: Center(
             child: Form(
               key: loginController.formKey,
               child: Column(children: [
-                SizedBox(height: 30),
+                const SizedBox(height: 30),
                 Expanded(
                   child: Text(
-                    'Login',
-                    style: TextStyle(
-                      color: Color(0xFF484848),
+                    'login'.tr,
+                    style: const TextStyle(
                       fontSize: 18,
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w700,
                     ),
                   ),
                 ),
-                SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      Text(
-                        'email',
-                        style: TextStyle(
-                          color: Color(0xFF484848),
-                          fontSize: 16,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      MyTextFormField(
-                          controller: loginController.emailController,
-                          hintText: 'user@gmail.com',
-                          inputType: TextInputType.emailAddress,
-                          howValidate: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          privacy: false),
-                      Text(
-                        'password',
-                        style: TextStyle(
-                          color: Color(0xFF484848),
-                          fontSize: 16,
-                          fontFamily: 'Poppins',
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
-                      SizedBox(height: 10),
-                      MyTextFormField(
-                          controller: loginController.passwordController,
-                          hintText: '*****',
-                          inputType: TextInputType.visiblePassword,
-                          howValidate: (value) {
-                            if (value!.isEmpty) {
-                              return 'Please enter some text';
-                            }
-                            return null;
-                          },
-                          privacy: true),
-                      TextButton(
-                        onPressed: () {
-                          Get.toNamed('/forgotPasswordPage');
-                        },
-                        child: Text('forgot password?',
-                            style: TextStyle(
-                              color: Color(0xFF686868),
-                              fontSize: 14,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.w400,
-                            )),
-                      ),
-                      MyElevatedButton(
-                          string: 'Login',
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        AuthTextWidget(text: 'email'.tr),
+                        const SizedBox(height: 10),
+                        MyTextFormField(
+                            controller: loginController.emailController,
+                            hintText: 'user@gmail.com',
+                            inputType: TextInputType.emailAddress,
+                            howValidate: (value) =>
+                                loginController.formValidate(value),
+                            privacy: false),
+                        AuthTextWidget(text: 'password'.tr),
+                        const SizedBox(height: 10),
+                        MyTextFormField(
+                            controller: loginController.passwordController,
+                            hintText: '*****',
+                            inputType: TextInputType.visiblePassword,
+                            howValidate: (value) =>
+                                loginController.formValidate(value),
+                            privacy: true),
+                        TextButton(
                           onPressed: () {
-                            loginController.checkLogin();
-                          }),
-                      TextButton(
-                        onPressed: () => Get.toNamed('/registerPage'),
-                        child: Text(
-                          'don’t have an account?',
-                          style: TextStyle(
-                              color: Color(0xFF686868),
+                            Get.toNamed('/forgotPasswordPage');
+                          },
+                          child: AuthTextWidget(
+                              text: 'forgot_password'.tr,
                               fontSize: 14,
-                              fontFamily: 'Poppins',
+                              fontWeight: FontWeight.w400),
+                        ),
+                        MyElevatedButton(
+                            string: 'login'.tr,
+                            onPressed: () {
+                              loginController.checkLogin();
+                            }),
+                        TextButton(
+                          onPressed: () => Get.toNamed('/registerPage'),
+                          child: AuthTextWidget(
+                              text: 'dont_have_an_account'.tr,
+                              fontSize: 14,
                               fontWeight: FontWeight.w500),
                         ),
-                      ),
-                      /* MyElevatedButton(
-                          string: 'continue with apple', onPressed: () {}),
-                      SizedBox(height: 10),
-                      MyElevatedButton(
-                          string: 'continue with google', onPressed: () {}),
-                      SizedBox(height: 10),
-                      MyElevatedButton(
-                          string: 'continue with microsoft', onPressed: () {}) */
-                    ],
+                        /* MyElevatedButton(
+                            string: 'continue with apple', onPressed: () {}),
+                        SizedBox(height: 10),
+                        MyElevatedButton(
+                            string: 'continue with google', onPressed: () {}),
+                        SizedBox(height: 10),
+                        MyElevatedButton(
+                            string: 'continue with microsoft', onPressed: () {}) */
+                      ],
+                    ),
                   ),
                 ),
               ]),
@@ -126,7 +98,7 @@ class Login extends StatelessWidget {
 
   InputDecoration formDecoration({required String hintText}) {
     return InputDecoration(
-      errorStyle: TextStyle(
+      errorStyle: const TextStyle(
         fontSize: 12,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w500,
@@ -134,8 +106,7 @@ class Login extends StatelessWidget {
       contentPadding: const EdgeInsets.all(10),
       border: InputBorder.none,
       hintText: hintText,
-      hintStyle: TextStyle(
-        color: Color(0xFF686868),
+      hintStyle: const TextStyle(
         fontSize: 14,
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w500,
