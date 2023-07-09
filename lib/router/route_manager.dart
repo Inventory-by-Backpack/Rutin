@@ -3,6 +3,7 @@ import 'package:get/route_manager.dart';
 import 'package:inventory/screen/login/register.dart';
 
 import '../screen/home/home_screen.dart';
+import '../screen/home/inventory_detail.dart';
 import '../screen/login/forgot_pass.dart';
 import '../screen/login/login.dart';
 import '../screen/network/network_screen.dart';
@@ -41,6 +42,11 @@ appRoute() => [
       GetPage(
           name: '/networkErrorPage',
           page: () => const NetworkErrorPage(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/inventoryDetailPage',
+          page: () => const InventoryDetail(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
     ];
