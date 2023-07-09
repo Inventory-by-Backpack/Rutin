@@ -7,8 +7,6 @@ class HomeController extends GetxController {
   RxInt get selectedIndex => _selectedIndex;
 
   late ScrollController controller;
-  final RxBool _showFab = true.obs;
-  RxBool get showFab => _showFab;
   final RxBool _isElevated = true.obs;
   RxBool get isEleveted => _isElevated;
   final RxBool _isVisible = true.obs;
@@ -55,5 +53,4 @@ class HomeController extends GetxController {
     controller.dispose();
     super.dispose();
   }
-  
 }

@@ -25,10 +25,9 @@ class MyTextFormField extends StatelessWidget {
         textAlign: TextAlign.center,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         decoration: InputDecoration(
-            contentPadding: EdgeInsets.all(5),
+            contentPadding: const EdgeInsets.all(5),
             hintText: hintText,
-            hintStyle: TextStyle(
-                color: Color(0xFF686868),
+            hintStyle: const TextStyle(
                 fontSize: 14,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500),
