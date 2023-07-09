@@ -7,10 +7,12 @@ environment:
   sdk: '>=3.0.1 <4.0.0'
 
 dependencies:
+  carousel_slider: ^4.2.1
   connectivity_plus: ^4.0.1
   flutter:
     sdk: flutter
   flutter_native_splash: ^2.3.0
+  flutter_speed_dial: ^7.0.0
   get: ^4.6.5
   google_sign_in: ^6.1.0
   http: ^1.0.0
