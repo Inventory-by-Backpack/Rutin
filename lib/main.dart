@@ -14,13 +14,16 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   bool isDarkMode = prefs.getBool('theme') ?? false;
+  String languageCode = prefs.getString('language') ?? 'en';
 
-  runApp(MainApp(isDarkMode: isDarkMode));
+  runApp(MainApp(isDarkMode: isDarkMode, languageCode: languageCode));
 }
 
 class MainApp extends StatelessWidget {
-  const MainApp({super.key, required this.isDarkMode});
+  const MainApp(
+      {super.key, required this.isDarkMode, required this.languageCode});
   final bool isDarkMode;
+  final String languageCode;
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +37,7 @@ class MainApp extends StatelessWidget {
       initialRoute: RouteManagement.initialRoute,
       getPages: RouteManagement.routeList,
       initialBinding: AuthBindings(),
+      locale: Locale(languageCode),
     );
   }
 }

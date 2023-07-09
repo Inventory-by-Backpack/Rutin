@@ -1,24 +1,38 @@
 Map<String, String> tr = {
-//Mesajlar
-  'error': 'Hata!',
-  'wait': 'Bekleyin',
-  'update': 'Güncelleme',
-  'profile_update': 'Profil Güncellendi',
-  'sign_out': 'Oturum Kapatıldı',
-  'signed_another': 'Başka bir cihazdan giriş yapıldı',
-  'user_add': 'Kullanıcı Ekleme',
-  'usr_create_suc': 'Kullanıcı oluşturma başarılı.',
-  'usr_create_unsuc': 'Kullanıcı oluşturma başarısız.',
-  'successful': 'Başarılı',
-  'unsuccessful': 'Başarısız',
-  'noti_fail': 'Bildirim Gönderilemedi',
-  'noti_suc': 'Bildirim Gönderildi',
-  'field_not_null': 'Boş bırakılamaz alan',
-  'no_data': 'Veri Yok',
-  'rest_pass': 'Şifre sıfırılama e-postası gönderildi',
-  'error_hstng': 'Sunucu hatası',
-  'cancel1': 'Vazgeç',
-  'usr_not_dlt': 'Kullanıcıyı silecek yetkiniz yoktur.',
-  'role_change': 'Rol Değiştirme',
-//Mesajlar
+//Auth
+  'login': 'Giriş Yap',
+  'register': 'Kayıt Ol',
+  'email': 'E-posta',
+  'password': 'Şifre',
+  'confirm_password': 'Şifreyi Onayla',
+  'forgot_password': 'Şifremi Unuttum',
+  'dont_have_an_account': 'Hesabın yok mu?',
+  'name': 'İsim',
+  'last_name': 'Soyisim',
+  'gender': 'Cinsiyet',
+  'male': 'Erkek',
+  'female': 'Kadın',
+  'terms_conditions': 'Şartlar & Koşullar',
+  'please_fill_in_the_required_fields': 'Lütfen gerekli alanları doldurunuz.',
+  'login_success': 'Giriş Başarılı',
+  'loading': 'Yükleniyor',
+  'please_enter_some_text': 'Lütfen bir metin giriniz.',
+  'passowrd_not_mach': 'Şifreler eşleşmiyor',
+  'send_reset_link': 'Sıfırlama Linki Gönder',
+//Auth
+//DrawMenu
+  'home': 'Anasayfa',
+  'settings': 'Ayarlar',
+  'logout': 'Çıkış Yap',
+  'sure_logout': 'Çıkış yapmak istediğinize emin misiniz?',
+  'cancel': 'Vazgeç',
+//DrawMenu
+//Home
+  'old': 'Eski',
+  'quanitly': 'Miktarsal',
+  'loop': 'Döngüsel',
+//Home
+//Settings
+  'mode': 'Tema Değiştir',
+  'language': 'Dil Değiştir',
 };

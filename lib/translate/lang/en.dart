@@ -1,24 +1,39 @@
 Map<String, String> en = {
-//Mesajlar
-  'error': 'Error!',
-  'wait': 'Waiting',
-  'update': 'Update',
-  'profile_update': 'Profile Updated',
-  'sign_out': 'Signed Out',
-  'signed_another': 'Signed in from another device',
-  'user_add': 'Add User',
-  'usr_create_suc': 'User creation successful.',
-  'usr_create_unsuc': 'User creation unsuccessful',
-  'successful': 'Successful',
-  'unsuccessful': 'Unsuccessful',
-  'noti_fail': 'Notification Failed to Send',
-  'noti_suc': 'Notification Sent',
-  'field_not_null': 'Field that cannot be blanked',
-  'no_data': 'No Data',
-  'rest_pass': 'Password reset email sent',
-  'error_hstng': 'Server error',
-  'cancel1': 'Cancel',
-  'usr_not_dlt': 'You do not have permission to delete the user.',
-  'role_change': 'Role Change',
-//Mesajlar
+//Auth
+  'login': 'Login',
+  'register': 'Register',
+  'email': 'Email',
+  'password': 'Password',
+  'confirm_password': 'Confirm Password',
+  'forgot_password': 'I forgot my password',
+  'dont_have_an_account': "Don't you have an account?",
+  'name': 'Name',
+  'last_name': 'Last name',
+  'gender': 'Gender',
+  'male': 'Male',
+  'female': 'Female',
+  'terms_conditions': 'Terms & Conditions',
+  'please_fill_in_the_required_fields': 'Please fill in the required fields',
+  'login_success': 'Login Successful',
+  'loading': 'Loading',
+  'please_enter_some_text': 'Please enter a text.',
+  'passowrd_not_mach': 'Password not mach',
+  'send_reset_link': 'Send Reset Link',
+//Auth
+//DrawMenu
+  'home': 'Home page',
+  'settings': 'Settings',
+  'logout': 'Log out',
+  'sure_logout': 'Are you sure you want to get out?',
+  'cancel': 'Cancel',
+//DrawMenu
+//Home
+  'old': 'Old',
+  'quanitly': 'Quantity',
+  'loop': 'Cyclical',
+//Home
+//Settings
+  'mode': 'Change the theme',
+  'language': 'Change language',
+//Settings
 };
