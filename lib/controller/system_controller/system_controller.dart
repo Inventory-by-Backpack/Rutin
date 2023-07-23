@@ -17,7 +17,7 @@ class GeneralSystemController extends GetxController {
   }
 
   void changeLanguage() {
-    _languageCode.value = _languageCode.value == 'en' ? 'tr' : 'en';
+    _languageCode.value = _languageCode.value == 'en-US' ? 'tr-TR' : 'en-US';
     Get.updateLocale(Locale(_languageCode.value));
     SharedPreferences.getInstance().then((prefs) {
       prefs.setString('language', languageCode);

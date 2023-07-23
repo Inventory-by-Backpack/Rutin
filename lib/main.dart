@@ -14,7 +14,7 @@ void main() async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
 
   bool isDarkMode = prefs.getBool('theme') ?? false;
-  String languageCode = prefs.getString('language') ?? 'en';
+  String languageCode = prefs.getString('language') ?? 'en-US';
 
   runApp(MainApp(isDarkMode: isDarkMode, languageCode: languageCode));
 }
