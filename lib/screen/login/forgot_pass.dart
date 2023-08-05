@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-
+import '../../controller/auth/reset_pass_controller.dart';
 import '../../widgets/elevated_button.dart';
 import '../../widgets/padding/padding_widget.dart';
 import '../../widgets/text_form.dart';
@@ -11,48 +11,38 @@ class ForgotPasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ResetPasswordController resetPass =
+        Get.put(ResetPasswordController());
     return Scaffold(
+      appBar: AppBar(
+          title: Text('forgot_password'.tr,
+              style: const TextStyle(
+                  fontSize: 18,
+                  fontFamily: 'Poppins',
+                  fontWeight: FontWeight.w700)),
+          centerTitle: true),
       body: SafeArea(
         child: MyPaddingWidget(
           child: Center(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 const SizedBox(height: 30),
-                Expanded(
-                  flex: 3,
-                  child: Text(
-                    'forgot_password'.tr,
-                    style: const TextStyle(
-                      fontSize: 18,
+                Text(
+                  'email'.tr,
+                  style: const TextStyle(
+                      fontSize: 16,
                       fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
+                      fontWeight: FontWeight.w600),
                 ),
-                Expanded(
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text(
-                          'email'.tr,
-                          style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: 'Poppins',
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        const MyTextFormField(
-                          hintText: 'user@gmail.com',
-                        ),
-                        const SizedBox(height: 20),
-                        MyElevatedButton(
-                          onPressed: () {},
-                          string: 'send_reset_link'.tr,
-                        ),
-                      ],
-                    ),
-                  ),
+                MyTextFormField(
+                  controller: resetPass.emailController,
+                  hintText: 'user@gmail.com',
                 ),
+                const SizedBox(height: 20),
+                MyElevatedButton(
+                    onPressed: () => resetPass.resetPassword(),
+                    string: 'send_reset_link'.tr),
               ],
             ),
           ),

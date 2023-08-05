@@ -40,4 +40,16 @@ class UserLoginServies {
       return Future.error(e);
     }
   }
+
+  Future<http.Response> userResetPassword(Map<String, dynamic> data) async {
+    languageCode = await getLanguage();
+    try {
+      Uri url = Uri.parse('$ip/api/$languageCode/Auth/SendResetEmail');
+      final body = jsonEncode(data);
+      final response = await http.post(url, body: body, headers: headers);
+      return response;
+    } catch (e) {
+      return Future.error(e);
+    }
+  }
 }
