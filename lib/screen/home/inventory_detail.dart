@@ -43,7 +43,8 @@ class InventoryDetail extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10),
                 image: DecorationImage(
                     onError: (exception, stackTrace) => const Text('Error'),
-                    image: NetworkImage('https://picsum.photos/250?image=9'),
+                    image:
+                        const NetworkImage('https://picsum.photos/250?image=9'),
                     fit: BoxFit.cover)),
           );
         },

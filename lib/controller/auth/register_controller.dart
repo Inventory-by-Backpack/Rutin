@@ -26,8 +26,10 @@ class RegisterController extends GetxController {
   }
 
   RxString? selectGender;
+  String? selectGenderValue;
   void selectGenderFunc(String? value) {
     selectGender?.value = value.toString();
+    selectGenderValue = value;
   }
 
   Future<void> registerUser() async {
@@ -42,7 +44,7 @@ class RegisterController extends GetxController {
           "firstname": firstname.text,
           "lastname": lastname.text,
           "email": emailController.text,
-          "gender": int.parse(selectGender!.value),
+          "gender": int.parse(selectGenderValue!),
           "password": passwordController.text,
           "deviceType": Platform.operatingSystem
         });
@@ -54,7 +56,7 @@ class RegisterController extends GetxController {
           passwordController.clear();
           confirmPasswordController.clear(); */
           Get.back(); //İlk önce dialog kapatılır
-          _logException(data['message'], color: Colors.green);
+          _logException(data['message'].toString(), color: Colors.green);
           Get.offAllNamed('/loginPage');
         } else {
           Get.back(); //İlk önce dialog kapatılır
@@ -65,6 +67,7 @@ class RegisterController extends GetxController {
         _logException('passowrd_not_mach'.tr, color: Colors.red);
       }
     } catch (e) {
+      Get.back();
       _logException(e.toString(), color: Colors.red);
     }
   }
