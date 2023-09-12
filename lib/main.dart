@@ -3,7 +3,6 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'core/binding/auth_bindings.dart';
 import 'core/router/route_manager.dart';
 import 'core/theme/theme_data.dart';
 import 'core/translate/local.dart';
@@ -36,7 +35,6 @@ class MainApp extends StatelessWidget {
       darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
       initialRoute: RouteManagement.initialRoute,
       getPages: RouteManagement.routeList,
-      initialBinding: AuthBindings(),
       locale: Locale(languageCode),
     );
   }
