@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
+/* import 'dart:convert';
+
 import 'package:inventory/core/env/api.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -17,7 +17,7 @@ class UserLoginServies {
     'Accept': 'application/json'
   };
 
-  Future<http.Response> register(Map<String, dynamic> data) async {
+  Future<Response> register(Map<String, dynamic> data) async {
     languageCode = await getLanguage();
     try {
       Uri url = Uri.parse('$ip/api/$languageCode/Auth/Register');
@@ -53,3 +53,4 @@ class UserLoginServies {
     }
   }
 }
+ */

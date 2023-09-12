@@ -1,13 +1,10 @@
-import 'dart:convert';
-import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../core/service/auth/auth.dart';
 import '../../widgets/snak_bar.dart';
 
 class RegisterController extends GetxController {
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  final _userLoginServies = UserLoginServies();
+  //final _userLoginServies = UserLoginServies();
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
@@ -38,7 +35,7 @@ class RegisterController extends GetxController {
         content: const CircularProgressIndicator(),
         barrierDismissible: false);
     try {
-      if (passwordController.text == confirmPasswordController.text) {
+      /*    if (passwordController.text == confirmPasswordController.text) {
         final response = await _userLoginServies.register({
           "userLoginType": 0,
           "firstname": firstname.text,
@@ -65,7 +62,7 @@ class RegisterController extends GetxController {
       } else {
         Get.back();
         _logException('passowrd_not_mach'.tr, color: Colors.red);
-      }
+      } */
     } catch (e) {
       Get.back();
       _logException(e.toString(), color: Colors.red);
@@ -73,8 +70,7 @@ class RegisterController extends GetxController {
   }
 
   void _logException(String message, {Color? color}) {
-    ShowSnackMessage.showSnack(Get.context!,
-        message: message, color: color ?? Colors.red);
+    ShowSnackMessage.showSnack(message: message, color: color ?? Colors.red);
   }
 
   String? formValidate(String? value) {

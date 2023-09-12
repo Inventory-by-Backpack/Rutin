@@ -1,55 +1,63 @@
 // To parse this JSON data, do
 //
-//     final loginModel = loginModelFromJson(jsonString);
+//     final loginAccessModel = loginAccessModelFromJson(jsonString);
 
 import 'dart:convert';
 
-LoginModel loginModelFromJson(String str) =>
-    LoginModel.fromJson(json.decode(str));
+LoginAccessModel loginAccessModelFromJson(String str) =>
+    LoginAccessModel.fromJson(json.decode(str));
 
-String loginModelToJson(LoginModel data) => json.encode(data.toJson());
+String loginAccessModelToJson(LoginAccessModel data) =>
+    json.encode(data.toJson());
 
-class LoginModel {
-  Data? data;
-  bool? isSuccess;
-  int? statusCode;
+class LoginAccessModel {
+  Data data;
+  bool isSuccess;
+  int statusCode;
 
-  LoginModel({
-    this.data,
-    this.isSuccess,
-    this.statusCode,
+  LoginAccessModel({
+    required this.data,
+    required this.isSuccess,
+    required this.statusCode,
   });
 
-  factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-        data: json["data"] == null ? null : Data.fromJson(json["data"]),
+  factory LoginAccessModel.fromJson(Map<String, dynamic> json) =>
+      LoginAccessModel(
+        data: Data.fromJson(json["data"]),
         isSuccess: json["isSuccess"],
         statusCode: json["statusCode"],
       );
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
+        "data": data.toJson(),
         "isSuccess": isSuccess,
         "statusCode": statusCode,
       };
 }
 
 class Data {
-  int? userLoginType;
-  String? avatar;
-  String? firstname;
-  String? lastname;
-  String? email;
-  int? gender;
-  String? accessToken;
+  int userLoginType;
+  String avatar;
+  String firstname;
+  String lastname;
+  String email;
+  int gender;
+  String accessToken;
+  DateTime accessTokenExpiration;
+  String refreshToken;
+  DateTime refreshTokenExpiration;
 
   Data({
-    this.userLoginType,
-    this.avatar,
-    this.firstname,
-    this.lastname,
-    this.email,
-    this.gender,
-    this.accessToken,
+    required this.userLoginType,
+    required this.avatar,
+    required this.firstname,
+    required this.lastname,
+    required this.email,
+    required this.gender,
+    required this.accessToken,
+    required this.accessTokenExpiration,
+    required this.refreshToken,
+    required this.refreshTokenExpiration,
   });
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
@@ -60,6 +68,9 @@ class Data {
         email: json["email"],
         gender: json["gender"],
         accessToken: json["accessToken"],
+        accessTokenExpiration: DateTime.parse(json["accessTokenExpiration"]),
+        refreshToken: json["refreshToken"],
+        refreshTokenExpiration: DateTime.parse(json["refreshTokenExpiration"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -70,5 +81,8 @@ class Data {
         "email": email,
         "gender": gender,
         "accessToken": accessToken,
+        "accessTokenExpiration": accessTokenExpiration.toIso8601String(),
+        "refreshToken": refreshToken,
+        "refreshTokenExpiration": refreshTokenExpiration.toIso8601String(),
       };
 }

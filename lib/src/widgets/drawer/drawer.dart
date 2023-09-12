@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/auth/auth_controller.dart';
+import '../../controller/system_controller/system_controller.dart';
 import '../dialog_widget/dialog_widget.dart';
 
 class DrawerMenu extends StatelessWidget {
@@ -9,7 +9,7 @@ class DrawerMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final _ = Get.put(AuthController());
+    final _ = Get.put(GeneralSystemController());
     return Drawer(
       child: ListView(padding: EdgeInsets.zero, children: [
         const UserAccountsDrawerHeader(
@@ -38,7 +38,7 @@ class DrawerMenu extends StatelessWidget {
     );
   }
 
-  Future<dynamic> cikisDialog(BuildContext context, AuthController _) {
+  Future<dynamic> cikisDialog(BuildContext context, GeneralSystemController _) {
     return showDialog(
         context: context,
         builder: (context) {
@@ -48,7 +48,7 @@ class DrawerMenu extends StatelessWidget {
             actions: [
               Expanded(
                 child: ElevatedButton(
-                    onPressed: () => _.logout(), child: Text('logout'.tr)),
+                    onPressed: () => _.userLogout(), child: Text('logout'.tr)),
               ),
               const SizedBox(width: 10),
               Expanded(

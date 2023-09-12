@@ -1,13 +1,10 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../core/service/auth/auth.dart';
 import '../../widgets/snak_bar.dart';
 
 class ResetPasswordController {
-  final _userLoginServies = UserLoginServies();
+  //final _userLoginServies = UserLoginServies();
   final emailController = TextEditingController();
 
   Future<void> resetPassword() async {
@@ -17,7 +14,7 @@ class ResetPasswordController {
       barrierDismissible: false,
     );
     try {
-      await _userLoginServies.userResetPassword({
+      /*  await _userLoginServies.userResetPassword({
         "email": emailController.text,
       }).then((value) async {
         final data = jsonDecode(value.body);
@@ -38,7 +35,7 @@ class ResetPasswordController {
 
           _logException(data['message'], color: Colors.red);
         }
-      });
+      }); */
     } catch (e) {
       Get.close(1);
       _logException(e.toString(), color: Colors.red);
@@ -46,7 +43,6 @@ class ResetPasswordController {
   }
 
   void _logException(String message, {Color? color}) {
-    ShowSnackMessage.showSnack(Get.context!,
-        message: message, color: color ?? Colors.red);
+    ShowSnackMessage.showSnack(message: message, color: color ?? Colors.red);
   }
 }

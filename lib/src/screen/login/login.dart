@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/auth/login_controller.dart';
-import '../../widgets/elevated_button.dart';
 import '../../widgets/padding/padding_widget.dart';
 import '../../widgets/text_form.dart';
 import 'widget/login_text_widget.dart';
@@ -57,13 +56,23 @@ class Login extends StatelessWidget {
                           fontSize: 14,
                           fontWeight: FontWeight.w400),
                     ),
-                    MyElevatedButton(
+                    Obx(() => ElevatedButton(
+                          onPressed: loginController.isLoading.value == false
+                              ? () {
+                                  loginController.checkLogin();
+                                }
+                              : null,
+                          child: loginController.isLoading.value == false
+                              ? const Text('Login')
+                              : const CircularProgressIndicator(),
+                        )),
+                    /*   MyElevatedButton(
                         string: 'login'.tr,
-                        onPressed: () {
-                          Get.offAllNamed('/homePage');
-
-//                          loginController.checkLogin();
-                        }),
+                        onPressed: loginController.isLoading.value == true
+                            ? null
+                            : () {
+                                loginController.checkLogin();
+                              }), */
                     TextButton(
                       onPressed: () => Get.toNamed('/registerPage'),
                       child: AuthTextWidget(

@@ -1,77 +1,64 @@
 import 'dart:convert';
-
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:inventory/src/widgets/snak_bar.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-//import 'package:shared_preferences/shared_preferences.dart';
+import 'package:jwt_decode_full/jwt_decode_full.dart';
 import '../../../core/model/auth/login_model.dart';
-import '../../../core/service/auth/auth.dart';
+import '../../../core/service/auth/requisition/api_req.dart';
+import '../system_controller/system_controller.dart';
 
 class LoginController extends GetxController {
-  final _userLoginServies = UserLoginServies();
-
   GlobalKey<FormState> formKey = GlobalKey<FormState>();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-  final Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
-  final LoginModel loginModel = LoginModel();
+  final DioRequest _dioRequest = DioRequest();
+  final GeneralSystemController _generalSystemController =
+      Get.put(GeneralSystemController(), permanent: true);
+  RxBool isLoading = false.obs;
 
   void checkLogin() async {
     if (formKey.currentState!.validate()) {
-      await loginSwagger();
+      await login();
     } else {
       _logException('please_fill_in_the_required_fields'.tr,
           color: Colors.red.shade900);
     }
   }
 
-  Future<void> loginSwagger() async {
-    Get.defaultDialog(
-      title: "loading".tr,
-      content: const CircularProgressIndicator(),
-      barrierDismissible: false,
-    );
+  Future login() async {
     try {
-      await _userLoginServies.login({
-        "username": emailController.text,
-        "password": passwordController.text
-      }).then((value) async {
-        final data = jsonDecode(value.body);
-        if (value.statusCode == 200) {
-          if (data['isSuccess'] == true) {
-            Get.back();
-            _logException('login_success'.tr, color: Colors.green);
-            loginModelFromJson(value.body);
-            final SharedPreferences prefs = await _prefs;
-            prefs.setString('token', data['data']['accessToken']);
-            Get.offAllNamed('/homePage');
-          } else {
-            Get.back();
-            _logException(data['message'], color: Colors.red);
-          }
-        } else if (value.statusCode == 401) {
-          //Buraya ayrı bir yer gelecek
-          Get.back();
-          _logException(value.body, color: Colors.red);
-        } else {
-          Get.back();
-          _logException(data['message'], color: Colors.red);
-        }
+      isLoading.value = true;
+      var response = await _dioRequest.login({
+        'username': emailController.text,
+        'password': passwordController.text
       });
+      if (response.data['isSuccess'] == true) {
+        final loginModel = loginAccessModelFromJson(jsonEncode(response.data));
+        _generalSystemController.refreshToken = loginModel.data.refreshToken;
+        _generalSystemController.token = loginModel.data.accessToken;
+        _generalSystemController.email = loginModel.data.email;
+        final jwtData = jwtDecode(loginModel.data.accessToken);
+        final userUid = jwtData.payload[
+            'http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier'];
+        _generalSystemController.userUid = userUid;
+        Get.offAllNamed('/homePage');
+        isLoading.value = false;
+      } else {
+        _logException(response.data['message']);
+      }
+    } on DioException catch (e) {
+      _logException(e.response?.data['message']);
     } catch (e) {
-      Get.back();
-      _logException(e.toString(), color: Colors.red);
+      _logException('Sunucu Bakımda Lütfen Daha Sonra Tekrar Deneyiniz');
+    } finally {
+      isLoading.value = false;
+      update();
     }
   }
 
   void _logException(String message, {Color? color}) {
-    ShowSnackMessage.showSnack(
-      Get.context!,
-      message: message,
-      color: color ?? Colors.red,
-    );
+    ShowSnackMessage.showSnack(message: message, color: color);
   }
 
   String? formValidate(String? value) {
