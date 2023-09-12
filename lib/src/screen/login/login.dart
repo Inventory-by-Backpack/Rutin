@@ -60,7 +60,9 @@ class Login extends StatelessWidget {
                     MyElevatedButton(
                         string: 'login'.tr,
                         onPressed: () {
-                          loginController.checkLogin();
+                          Get.offAllNamed('/homePage');
+
+//                          loginController.checkLogin();
                         }),
                     TextButton(
                       onPressed: () => Get.toNamed('/registerPage'),

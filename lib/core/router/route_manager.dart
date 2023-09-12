@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
-import 'package:inventory/screen/login/register.dart';
+import 'package:inventory/src/screen/login/register.dart';
 
-import '../screen/home/home_screen.dart';
-import '../screen/home/inventory_detail.dart';
-import '../screen/login/forgot_pass.dart';
-import '../screen/login/login.dart';
-import '../screen/network/network_screen.dart';
+import '../../src/screen/home/home_screen.dart';
+import '../../src/screen/home/inventory_detail.dart';
+import '../../src/screen/login/forgot_pass.dart';
+import '../../src/screen/login/login.dart';
+import '../../src/screen/network/network_screen.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';

@@ -2,12 +2,12 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:inventory/widgets/snak_bar.dart';
+import 'package:inventory/src/widgets/snak_bar.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
-import '../../model/auth/login_model.dart';
-import '../../service/auth/auth.dart';
+import '../../../core/model/auth/login_model.dart';
+import '../../../core/service/auth/auth.dart';
 
 class LoginController extends GetxController {
   final _userLoginServies = UserLoginServies();

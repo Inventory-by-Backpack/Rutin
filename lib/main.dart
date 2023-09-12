@@ -3,10 +3,10 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'binding/auth_bindings.dart';
-import 'router/route_manager.dart';
-import 'theme/theme_data.dart';
-import 'translate/local.dart';
+import 'core/binding/auth_bindings.dart';
+import 'core/router/route_manager.dart';
+import 'core/theme/theme_data.dart';
+import 'core/translate/local.dart';
 
 void main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();

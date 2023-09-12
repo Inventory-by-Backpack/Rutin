@@ -2,7 +2,7 @@ import 'dart:convert';
 import 'dart:io' show Platform;
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../service/auth/auth.dart';
+import '../../../core/service/auth/auth.dart';
 import '../../widgets/snak_bar.dart';
 
 class RegisterController extends GetxController {
