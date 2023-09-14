@@ -7,6 +7,7 @@ class MyTextFormField extends StatelessWidget {
   final String? Function(String?)? howValidate;
 
   final bool privacy;
+  final Widget? suffixIcon;
 
   const MyTextFormField({
     super.key,
@@ -15,6 +16,7 @@ class MyTextFormField extends StatelessWidget {
     this.inputType,
     this.howValidate,
     this.privacy = false,
+    this.suffixIcon,
   });
 
   @override
@@ -31,6 +33,7 @@ class MyTextFormField extends StatelessWidget {
                 fontSize: 14,
                 fontFamily: 'Poppins',
                 fontWeight: FontWeight.w500),
+            suffixIcon: suffixIcon,
             enabledBorder: InputBorder.none,
             disabledBorder: InputBorder.none,
             focusedBorder: InputBorder.none,

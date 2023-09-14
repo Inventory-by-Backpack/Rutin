@@ -16,6 +16,7 @@ class LoginController extends GetxController {
   final GeneralSystemController _generalSystemController =
       Get.put(GeneralSystemController(), permanent: true);
   RxBool isLoading = false.obs;
+  RxBool isPasswordVisible = false.obs;
 
   void checkLogin() async {
     if (formKey.currentState!.validate()) {

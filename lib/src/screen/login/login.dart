@@ -40,13 +40,27 @@ class Login extends StatelessWidget {
                         privacy: false),
                     AuthTextWidget(text: 'password'.tr),
                     const SizedBox(height: 10),
-                    MyTextFormField(
-                        controller: loginController.passwordController,
-                        hintText: '*****',
-                        inputType: TextInputType.visiblePassword,
-                        howValidate: (value) =>
-                            loginController.formValidate(value),
-                        privacy: true),
+                    Obx(
+                      () => MyTextFormField(
+                          controller: loginController.passwordController,
+                          hintText: '*****',
+                          inputType: TextInputType.visiblePassword,
+                          howValidate: (value) =>
+                              loginController.formValidate(value),
+                          suffixIcon: IconButton(
+                              padding: EdgeInsets.zero,
+                              visualDensity: VisualDensity.compact,
+                              onPressed: () {
+                                loginController.isPasswordVisible.value =
+                                    !loginController.isPasswordVisible.value;
+                              },
+                              icon: Icon(
+                                  loginController.isPasswordVisible.value ==
+                                          false
+                                      ? Icons.visibility_off
+                                      : Icons.visibility)),
+                          privacy: loginController.isPasswordVisible.value),
+                    ),
                     TextButton(
                       onPressed: () {
                         Get.toNamed('/forgotPasswordPage');
