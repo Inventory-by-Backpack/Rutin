@@ -1,35 +1,41 @@
 import 'package:flutter/material.dart';
 
 class BottomNavBar extends StatelessWidget {
-  const BottomNavBar(
-      {required this.isElevated, required this.isVisible, super.key});
-
-  final bool isElevated;
-  final bool isVisible;
+  const BottomNavBar({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedContainer(
-      duration: const Duration(milliseconds: 200),
-      height: isVisible ? 80.0 : 0,
+    return ClipRRect(
+      borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(25), topRight: Radius.circular(25)),
       child: BottomAppBar(
-        elevation: isElevated ? null : 0.0,
+        color: const Color(0xFF60ABA0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            IconButton(
-              tooltip: 'Favorite',
-              icon: const Icon(Icons.favorite),
-              onPressed: () {},
-            ),
             IconButton(
               tooltip: 'Home',
               icon: const Icon(Icons.home),
               onPressed: () {},
             ),
             IconButton(
+              tooltip: 'Plan',
+              icon: const Icon(Icons.calendar_today_rounded),
+              onPressed: () {},
+            ),
+            IconButton(
+              tooltip: 'Plan',
+              icon: const Icon(Icons.add),
+              onPressed: () {},
+            ),
+            IconButton(
               tooltip: 'Profile',
               icon: const Icon(Icons.person),
+              onPressed: () {},
+            ),
+            IconButton(
+              tooltip: 'Favorite',
+              icon: const Icon(Icons.settings),
               onPressed: () {},
             ),
           ],

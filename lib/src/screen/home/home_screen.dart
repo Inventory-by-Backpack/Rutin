@@ -14,20 +14,15 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final cntrl = Get.put(HomeController());
-    final systemCntrl = Get.put(GeneralSystemController(), permanent: true);
     return DefaultTabController(
       length: 3,
       initialIndex: 1,
-      child: Obx(() => Scaffold(
-            drawer: const DrawerMenu(),
-            bottomNavigationBar: BottomNavBar(
-                isElevated: cntrl.isEleveted.value,
-                isVisible: cntrl.isVisible.value),
-            floatingActionButton: actionButton(cntrl, systemCntrl),
-            floatingActionButtonLocation: cntrl.fabLocation,
-            appBar: appBar(),
-            body: body(cntrl),
-          )),
+      child: Scaffold(
+        drawer: const DrawerMenu(),
+        bottomNavigationBar: const BottomNavBar(),
+        appBar: appBar(),
+        body: body(cntrl),
+      ),
     );
   }
 
@@ -43,10 +38,10 @@ class HomePage extends StatelessWidget {
             child: const Icon(Icons.language_rounded),
             label: 'language'.tr,
             onTap: () => systemCntrl.changeLanguage()),
-        SpeedDialChild(
+        /* SpeedDialChild(
             child: const Icon(Icons.dark_mode_rounded),
             label: 'mode'.tr,
-            onTap: () => systemCntrl.changeTheme()),
+            onTap: () => systemCntrl.changeTheme()), */
       ],
     );
   }

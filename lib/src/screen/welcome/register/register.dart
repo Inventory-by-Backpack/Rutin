@@ -5,7 +5,7 @@ import '../../../controller/auth/register_controller.dart';
 import '../../../widgets/elevated_button.dart';
 import '../../../widgets/padding/padding_widget.dart';
 import '../../../widgets/text_form.dart';
-import 'widget/login_text_widget.dart';
+import '../login/widget/login_text_widget.dart';
 
 class Register extends StatelessWidget {
   const Register({super.key});
@@ -31,18 +31,14 @@ class Register extends StatelessWidget {
                     children: [
                       const SizedBox(height: 30),
                       AuthTextWidget(text: 'name'.tr),
-                      MyTextFormField(
-                          controller: _.firstname,
+                      const MyTextFormField(
                           hintText: 'Alexis',
                           inputType: TextInputType.name,
-                          howValidate: (value) => _.formValidate(value),
                           privacy: false),
                       AuthTextWidget(text: 'last_name'.tr),
-                      MyTextFormField(
-                          controller: _.lastname,
+                      const MyTextFormField(
                           hintText: 'CROWN',
                           inputType: TextInputType.name,
-                          howValidate: (value) => _.formValidate(value),
                           privacy: false),
                       AuthTextWidget(text: 'gender'.tr),
                       Card(
@@ -76,25 +72,19 @@ class Register extends StatelessWidget {
                             }),
                       ),
                       AuthTextWidget(text: 'email'.tr),
-                      MyTextFormField(
-                          controller: _.emailController,
+                      const MyTextFormField(
                           hintText: 'user@gmail.com',
                           inputType: TextInputType.emailAddress,
-                          howValidate: (value) => _.formValidate(value),
                           privacy: false),
                       AuthTextWidget(text: 'password'.tr),
-                      MyTextFormField(
-                          controller: _.passwordController,
+                      const MyTextFormField(
                           hintText: '*****',
                           inputType: TextInputType.visiblePassword,
-                          howValidate: (value) => _.formValidate(value),
                           privacy: true),
                       AuthTextWidget(text: 'confirm_password'.tr),
-                      MyTextFormField(
-                          controller: _.confirmPasswordController,
+                      const MyTextFormField(
                           hintText: '*****',
                           inputType: TextInputType.visiblePassword,
-                          howValidate: (value) => _.formValidate(value),
                           privacy: true),
                       Text(
                         'terms_conditions'.tr,

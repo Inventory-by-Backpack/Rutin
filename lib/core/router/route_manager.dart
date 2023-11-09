@@ -1,13 +1,13 @@
 import 'package:get/route_manager.dart';
-import 'package:inventory/src/screen/welcome_page/login/register.dart';
+import 'package:inventory/src/screen/welcome/register/register.dart';
 
 import '../../src/screen/home/home_screen.dart';
 import '../../src/screen/home/inventory_detail.dart';
-import '../../src/screen/welcome_page/login/forgot_pass.dart';
-import '../../src/screen/welcome_page/login/login.dart';
+import '../../src/screen/welcome/forgot_pass.dart';
+import '../../src/screen/welcome/login/login.dart';
 import '../../src/screen/network/network_screen.dart';
 import '../../src/screen/splash/splash_page.dart';
-import '../../src/screen/welcome_page/welcome_page.dart';
+import '../../src/screen/welcome/welcome_page.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';
