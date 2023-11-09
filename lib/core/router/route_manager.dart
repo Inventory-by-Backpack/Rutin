@@ -18,41 +18,33 @@ appRoute() => [
       GetPage(
           name: '/splash',
           page: () => const SplashPage(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/welcomePage',
           page: () => const WelcomePage(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/loginPage',
-          page: () => const Login(),
-          transition: Transition.leftToRightWithFade,
+          page: () => const LoginPage(),
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/registerPage',
           page: () => const Register(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/homePage',
           page: () => const HomePage(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/forgotPasswordPage',
           page: () => const ForgotPasswordPage(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/networkErrorPage',
           page: () => const NetworkErrorPage(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/inventoryDetailPage',
           page: () => const InventoryDetail(),
-          transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
     ];

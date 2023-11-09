@@ -2,107 +2,79 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/auth/login_controller.dart';
+import '../../../widgets/app_background.dart';
+import '../../../widgets/custom_appbar.dart';
+import '../../../widgets/elevated_button.dart';
 import '../../../widgets/padding/padding_widget.dart';
 import '../../../widgets/text_form.dart';
 import 'widget/login_text_widget.dart';
 
-class Login extends StatelessWidget {
-  const Login({super.key});
+class LoginPage extends StatelessWidget {
+  const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     final LoginController loginController = Get.put(LoginController());
 
-    return Scaffold(
-      appBar: AppBar(
-          title: Text('login'.tr,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700)),
-          centerTitle: true),
-      body: SafeArea(
-        child: MyPaddingWidget(
-          child: Form(
-            key: loginController.formKey,
+    return AppBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: const CustomAppBar(title: 'Login'),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 40),
+          child: Obx(
+            () => MyElevatedButton(
+              string: loginController.isLoading.value == false
+                  ? 'Login'
+                  : 'Loading',
+              onPressed: loginController.isLoading.value == false
+                  ? () {
+                      loginController.checkLogin();
+                    }
+                  : null,
+            ),
+          ),
+        ),
+        body: SafeArea(
+          child: MyPaddingWidget(
             child: Center(
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    AuthTextWidget(text: 'email'.tr),
-                    const SizedBox(height: 10),
-                    MyTextFormField(
-                        controller: loginController.emailController,
-                        hintText: 'user@gmail.com',
-                        inputType: TextInputType.emailAddress,
-                        howValidate: (value) =>
-                            loginController.formValidate(value),
-                        privacy: false),
-                    AuthTextWidget(text: 'password'.tr),
-                    const SizedBox(height: 10),
-                    Obx(
-                      () => MyTextFormField(
+              child: Form(
+                key: loginController.formKey,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      AuthTextWidget(text: 'email'.tr),
+                      const SizedBox(height: 15),
+                      MyTextFormField(
+                          controller: loginController.emailController,
+                          hintText: 'user@gmail.com',
+                          inputType: TextInputType.emailAddress,
+                          howValidate: (value) =>
+                              loginController.formValidate(value),
+                          privacy: false),
+                      const SizedBox(height: 15),
+                      AuthTextWidget(text: 'password'.tr),
+                      const SizedBox(height: 15),
+                      MyTextFormField(
                           controller: loginController.passwordController,
                           hintText: '*****',
                           inputType: TextInputType.visiblePassword,
                           howValidate: (value) =>
                               loginController.formValidate(value),
-                          suffixIcon: IconButton(
-                              padding: EdgeInsets.zero,
-                              visualDensity: VisualDensity.compact,
-                              onPressed: () {
-                                loginController.isPasswordVisible.value =
-                                    !loginController.isPasswordVisible.value;
-                              },
-                              icon: Icon(
-                                  loginController.isPasswordVisible.value ==
-                                          false
-                                      ? Icons.visibility_off
-                                      : Icons.visibility)),
                           privacy: loginController.isPasswordVisible.value),
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Get.toNamed('/forgotPasswordPage');
-                      },
-                      child: AuthTextWidget(
-                          text: 'forgot_password'.tr,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w400),
-                    ),
-                    Obx(() => ElevatedButton(
-                          onPressed: loginController.isLoading.value == false
-                              ? () {
-                                  loginController.checkLogin();
-                                }
-                              : null,
-                          child: loginController.isLoading.value == false
-                              ? const Text('Login')
-                              : const CircularProgressIndicator(),
-                        )),
-                    /*   MyElevatedButton(
-                        string: 'login'.tr,
-                        onPressed: loginController.isLoading.value == true
-                            ? null
-                            : () {
-                                loginController.checkLogin();
-                              }), */
-                    TextButton(
-                      onPressed: () => Get.toNamed('/registerPage'),
-                      child: AuthTextWidget(
-                          text: 'dont_have_an_account'.tr,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500),
-                    ),
-                    /* MyElevatedButton(
-                        string: 'continue with apple', onPressed: () {}),
-                    SizedBox(height: 10),
-                    MyElevatedButton(
-                        string: 'continue with google', onPressed: () {}),
-                    SizedBox(height: 10),
-                    MyElevatedButton(
-                        string: 'continue with microsoft', onPressed: () {}) */
-                  ],
+                      TextButton.icon(
+                        onPressed: () {
+                          Get.toNamed('/forgotPasswordPage');
+                        },
+                        label: AuthTextWidget(
+                            text: 'forgot_password'.tr,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400),
+                        icon: const Icon(Icons.password_rounded,
+                            color: Color(0xFF519086), size: 16),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -110,33 +82,5 @@ class Login extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  InputDecoration formDecoration({required String hintText}) {
-    return InputDecoration(
-      errorStyle: const TextStyle(
-        fontSize: 12,
-        fontFamily: 'Poppins',
-        fontWeight: FontWeight.w500,
-      ),
-      contentPadding: const EdgeInsets.all(10),
-      border: InputBorder.none,
-      hintText: hintText,
-      hintStyle: const TextStyle(
-        fontSize: 14,
-        fontFamily: 'Poppins',
-        fontWeight: FontWeight.w500,
-      ),
-    );
-  }
-
-  buildTextForm({
-    TextEditingController? controller,
-    String? hintText,
-    required TextInputType inputType,
-    required String? Function(String?)? howValidate,
-    required bool privacy,
-  }) {
-    return;
   }
 }

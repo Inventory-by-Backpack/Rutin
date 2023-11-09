@@ -2,10 +2,10 @@ Map<String, String> en = {
 //Auth
   'login': 'Login',
   'register': 'Register',
-  'email': 'Email',
+  'email': 'Email or Phone',
   'password': 'Password',
   'confirm_password': 'Confirm Password',
-  'forgot_password': 'I forgot my password',
+  'forgot_password': 'Forgot Password',
   'dont_have_an_account': "Don't you have an account?",
   'name': 'Name',
   'last_name': 'Last name',

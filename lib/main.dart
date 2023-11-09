@@ -27,6 +27,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       translations: Localization(),
+      debugShowCheckedModeBanner: false,
       title: 'Rutin',
       themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
       theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),

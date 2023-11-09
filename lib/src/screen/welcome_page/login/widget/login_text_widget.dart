@@ -15,10 +15,13 @@ class AuthTextWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       text,
-      style: TextStyle(
-          fontSize: fontSize ?? 16,
-          fontFamily: 'Poppins',
-          fontWeight: fontWeight ?? FontWeight.w600),
+      style: const TextStyle(
+        color: Color(0xFF519086),
+        fontSize: 14,
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w400,
+        height: 0,
+      ),
     );
   }
 }

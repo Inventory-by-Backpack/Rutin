@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/auth/reset_pass_controller.dart';
+import '../../../widgets/custom_appbar.dart';
 import '../../../widgets/elevated_button.dart';
 import '../../../widgets/padding/padding_widget.dart';
 import '../../../widgets/text_form.dart';
@@ -14,13 +15,7 @@ class ForgotPasswordPage extends StatelessWidget {
     final ResetPasswordController resetPass =
         Get.put(ResetPasswordController());
     return Scaffold(
-      appBar: AppBar(
-          title: Text('forgot_password'.tr,
-              style: const TextStyle(
-                  fontSize: 18,
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w700)),
-          centerTitle: true),
+      appBar: CustomAppBar(title: 'forgot_password'.tr),
       body: SafeArea(
         child: MyPaddingWidget(
           child: Center(
