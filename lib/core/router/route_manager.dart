@@ -1,12 +1,13 @@
 import 'package:get/route_manager.dart';
-import 'package:inventory/src/screen/login/register.dart';
+import 'package:inventory/src/screen/welcome_page/login/register.dart';
 
 import '../../src/screen/home/home_screen.dart';
 import '../../src/screen/home/inventory_detail.dart';
-import '../../src/screen/login/forgot_pass.dart';
-import '../../src/screen/login/login.dart';
+import '../../src/screen/welcome_page/login/forgot_pass.dart';
+import '../../src/screen/welcome_page/login/login.dart';
 import '../../src/screen/network/network_screen.dart';
 import '../../src/screen/splash/splash_page.dart';
+import '../../src/screen/welcome_page/welcome_page.dart';
 
 class RouteManagement {
   static const String initialRoute = '/splash';
@@ -17,6 +18,11 @@ appRoute() => [
       GetPage(
           name: '/splash',
           page: () => const SplashPage(),
+          transition: Transition.leftToRightWithFade,
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/welcomePage',
+          page: () => const WelcomePage(),
           transition: Transition.leftToRightWithFade,
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(

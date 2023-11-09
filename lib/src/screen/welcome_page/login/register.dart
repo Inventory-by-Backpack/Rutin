@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/auth/register_controller.dart';
-import '../../widgets/elevated_button.dart';
-import '../../widgets/padding/padding_widget.dart';
-import '../../widgets/text_form.dart';
+import '../../../controller/auth/register_controller.dart';
+import '../../../widgets/elevated_button.dart';
+import '../../../widgets/padding/padding_widget.dart';
+import '../../../widgets/text_form.dart';
 import 'widget/login_text_widget.dart';
 
 class Register extends StatelessWidget {

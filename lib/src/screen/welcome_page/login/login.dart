@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/auth/login_controller.dart';
-import '../../widgets/padding/padding_widget.dart';
-import '../../widgets/text_form.dart';
+import '../../../controller/auth/login_controller.dart';
+import '../../../widgets/padding/padding_widget.dart';
+import '../../../widgets/text_form.dart';
 import 'widget/login_text_widget.dart';
 
 class Login extends StatelessWidget {

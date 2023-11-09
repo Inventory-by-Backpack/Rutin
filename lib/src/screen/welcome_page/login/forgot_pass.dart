@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../controller/auth/reset_pass_controller.dart';
-import '../../widgets/elevated_button.dart';
-import '../../widgets/padding/padding_widget.dart';
-import '../../widgets/text_form.dart';
+import '../../../controller/auth/reset_pass_controller.dart';
+import '../../../widgets/elevated_button.dart';
+import '../../../widgets/padding/padding_widget.dart';
+import '../../../widgets/text_form.dart';
 
 class ForgotPasswordPage extends StatelessWidget {
   const ForgotPasswordPage({Key? key}) : super(key: key);

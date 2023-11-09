@@ -32,7 +32,7 @@ class _SplashPageState extends State<SplashPage> {
     Future.delayed(const Duration(seconds: 1), () {
       if (!isDisposed) {
         if (appController.token == null) {
-          Get.offAllNamed('/loginPage');
+          Get.offAllNamed('/welcomePage');
         } else {
           Get.offAllNamed('/homePage');
         }
