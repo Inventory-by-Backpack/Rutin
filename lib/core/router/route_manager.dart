@@ -29,7 +29,7 @@ appRoute() => [
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/registerPage',
-          page: () => const Register(),
+          page: () => const OnBoardingPage(),
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/homePage',

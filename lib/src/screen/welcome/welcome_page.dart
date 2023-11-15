@@ -16,6 +16,7 @@ class WelcomePage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           backgroundColor: Colors.transparent,
+          elevation: 0,
           title: Image.asset('assets/splash.png', height: 50),
           centerTitle: true,
         ),
@@ -54,7 +55,11 @@ class WelcomePage extends StatelessWidget {
                 child: MyPaddingWidget(
                   child: Column(
                     children: [
-                      MyElevatedButton(string: 'Get Started', onPressed: () {}),
+                      MyElevatedButton(
+                          string: 'Get Started',
+                          onPressed: () {
+                            Get.toNamed('/registerPage');
+                          }),
                       const SizedBox(height: 10),
                       // Buton ile metin arasındaki boşluk
                       Text.rich(

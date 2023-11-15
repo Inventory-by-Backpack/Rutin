@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'core/router/route_manager.dart';
-import 'core/theme/theme_data.dart';
 import 'core/translate/local.dart';
 
 void main() async {
@@ -29,9 +26,7 @@ class MainApp extends StatelessWidget {
       translations: Localization(),
       debugShowCheckedModeBanner: false,
       title: 'Rutin',
-      themeMode: isDarkMode ? ThemeMode.dark : ThemeMode.light,
-      theme: ThemeData(useMaterial3: true, colorScheme: lightColorScheme),
-      darkTheme: ThemeData(useMaterial3: true, colorScheme: darkColorScheme),
+      themeMode: ThemeMode.light,
       initialRoute: RouteManagement.initialRoute,
       getPages: RouteManagement.routeList,
       locale: Locale(languageCode),

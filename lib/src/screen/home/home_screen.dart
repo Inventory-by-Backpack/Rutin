@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_speed_dial/flutter_speed_dial.dart';
 import 'package:get/get.dart';
 
-import '../../controller/home_controller/home_controller.dart';
-import '../../controller/system_controller/system_controller.dart';
-import '../../widgets/drawer/drawer.dart';
+import '../../../core/model/home/home_model.dart';
+import '../../widgets/app_background.dart';
 import '../../widgets/nav_bar/bottom_nav_bar.dart';
 import '../../widgets/padding/padding_widget.dart';
 
@@ -13,102 +11,318 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final cntrl = Get.put(HomeController());
-    return DefaultTabController(
-      length: 3,
-      initialIndex: 1,
-      child: Scaffold(
-        drawer: const DrawerMenu(),
-        bottomNavigationBar: const BottomNavBar(),
-        appBar: appBar(),
-        body: body(cntrl),
+    return AppBackground(
+      child: DefaultTabController(
+        length: 3,
+        initialIndex: 1,
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          bottomNavigationBar: const BottomNavBar(),
+          appBar: tabBar(),
+          body: body(),
+        ),
       ),
     );
   }
 
-  SpeedDial actionButton(
-      HomeController cntrl, GeneralSystemController systemCntrl) {
-    return SpeedDial(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      childPadding: const EdgeInsets.symmetric(vertical: 10),
-      icon: Icons.expand_less_rounded,
-      activeIcon: Icons.expand_more_rounded,
-      children: [
-        SpeedDialChild(
-            child: const Icon(Icons.language_rounded),
-            label: 'language'.tr,
-            onTap: () => systemCntrl.changeLanguage()),
-        /* SpeedDialChild(
-            child: const Icon(Icons.dark_mode_rounded),
-            label: 'mode'.tr,
-            onTap: () => systemCntrl.changeTheme()), */
-      ],
-    );
-  }
-
-  SafeArea body(HomeController _) {
-    return SafeArea(
+  Widget body() {
+    return const SafeArea(
       child: TabBarView(children: [
-        const Icon(Icons.directions_car),
-        quantily(_),
-        loop(_),
+        OldWidget(),
+        QuantityWidget(),
+        CyclicalWidget(),
       ]),
     );
   }
 
-  Widget quantily(HomeController _) {
-    return MyPaddingWidget(
-      child: ListView.builder(
-          controller: _.controller,
-          itemCount: 10,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  onTap: () => Get.toNamed('/inventoryDetailPage',
-                      arguments: {'id': index}),
-                  title: Text('Item ${index + 1}'),
-                  subtitle: const Text('sub title'),
-                  leading: const Icon(Icons.ac_unit),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                ));
-          }),
+  TabBar tabBar() {
+    return TabBar(
+      labelColor: const Color(0xFF519086),
+      unselectedLabelColor: const Color(0xFF8A9795),
+      padding:
+          EdgeInsets.only(top: MediaQuery.of(Get.context!).size.height * 0.05),
+      labelStyle: const TextStyle(
+        fontSize: 18,
+        fontFamily: 'Poppins',
+        fontWeight: FontWeight.w700,
+      ),
+      indicator: BoxDecoration(
+        borderRadius: BorderRadius.circular(10),
+        color: Colors.transparent,
+      ),
+      tabs: [
+        Tab(text: 'old'.tr),
+        Tab(text: 'quanitly'.tr),
+        Tab(text: 'loop'.tr),
+      ],
     );
-  }
-
-  Widget loop(HomeController _) {
-    return MyPaddingWidget(
-      child: ListView.builder(
-          controller: _.controller,
-          itemCount: 30,
-          itemBuilder: (BuildContext context, int index) {
-            return Card(
-                margin: const EdgeInsets.symmetric(vertical: 10),
-                child: ListTile(
-                  title: Text('Item ${index + 1}'),
-                  subtitle: const Text('sub title'),
-                  leading: const Icon(Icons.ac_unit),
-                  trailing: const Icon(Icons.arrow_forward_ios),
-                ));
-          }),
-    );
-  }
-
-  AppBar appBar() {
-    return AppBar(
-        bottom: TabBar(
-            labelStyle: const TextStyle(
-                fontSize: 18,
-                fontFamily: 'Poppins',
-                fontWeight: FontWeight.w700),
-            indicator: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                color: Colors.transparent),
-            tabs: [
-              Tab(text: 'old'.tr),
-              Tab(text: 'quanitly'.tr),
-              Tab(text: 'loop'.tr),
-            ]),
-        title: const Text('Home Page'));
   }
 }
+
+class CustomWidget extends StatelessWidget {
+  const CustomWidget({
+    Key? key,
+    required this.titleTextStyle,
+    required this.subtitleTextStyle,
+    required this.bodyTextStyle,
+    required this.dataList,
+  }) : super(key: key);
+
+  final TextStyle titleTextStyle;
+  final TextStyle subtitleTextStyle;
+  final TextStyle bodyTextStyle;
+  final List<HomeModel> dataList;
+
+  @override
+  Widget build(BuildContext context) {
+    return MyPaddingWidget(
+      child: ListView.builder(
+        itemCount: dataList.length,
+        itemBuilder: (BuildContext context, int index) {
+          final data = dataList[index];
+          return CustomCard(
+            data: data,
+            titleTextStyle: titleTextStyle,
+            subtitleTextStyle: subtitleTextStyle,
+            bodyTextStyle: bodyTextStyle,
+          );
+        },
+      ),
+    );
+  }
+}
+
+class CyclicalWidget extends StatelessWidget {
+  const CyclicalWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const titleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 14,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+    );
+
+    const subtitleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+    );
+
+    const bodyTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
+    );
+
+    return CustomWidget(
+      titleTextStyle: titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle,
+      bodyTextStyle: bodyTextStyle,
+      dataList: cyclicalList,
+    );
+  }
+}
+
+class QuantityWidget extends StatelessWidget {
+  const QuantityWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const titleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 14,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+    );
+
+    const subtitleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+    );
+
+    const bodyTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
+    );
+
+    return CustomWidget(
+      titleTextStyle: titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle,
+      bodyTextStyle: bodyTextStyle,
+      dataList: quantityList,
+    );
+  }
+}
+
+class OldWidget extends StatelessWidget {
+  const OldWidget({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    const titleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 14,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w600,
+    );
+
+    const subtitleTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w500,
+    );
+
+    const bodyTextStyle = TextStyle(
+      color: Color(0xFF519086),
+      fontSize: 12,
+      fontFamily: 'Poppins',
+      fontWeight: FontWeight.w400,
+    );
+
+    return CustomWidget(
+      titleTextStyle: titleTextStyle,
+      subtitleTextStyle: subtitleTextStyle,
+      bodyTextStyle: bodyTextStyle,
+      dataList: oldList,
+    );
+  }
+}
+
+class CustomCard extends StatelessWidget {
+  const CustomCard({
+    Key? key,
+    required this.data,
+    required this.titleTextStyle,
+    required this.subtitleTextStyle,
+    required this.bodyTextStyle,
+  }) : super(key: key);
+
+  final HomeModel data;
+  final TextStyle titleTextStyle;
+  final TextStyle subtitleTextStyle;
+  final TextStyle bodyTextStyle;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+          image: data.image == null
+              ? null
+              : DecorationImage(
+                  opacity: 0.3,
+                  image: AssetImage(data.image.toString()),
+                  fit: BoxFit.cover,
+                ),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 1,
+              blurRadius: 1,
+              offset: const Offset(0, 3),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(10)),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(data.title, style: titleTextStyle),
+                Text(data.description, style: subtitleTextStyle),
+              ],
+            ),
+          ),
+          const SizedBox(height: 10),
+          const Divider(height: 1),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8),
+            child: Row(
+              children: [
+                Text(data.username, style: bodyTextStyle),
+                const Spacer(),
+                Text(data.duration, style: bodyTextStyle),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+List<HomeModel> cyclicalList = [
+  HomeModel(
+    title: 'Cat food  🐈 🍎',
+    description: ' * For Pamuk\n *Molly, Adult 4kg',
+    username: 'You',
+    duration: '2 days',
+  ),
+  HomeModel(
+      title: 'Company vehicle 🚙 ⛽️',
+      description: '* Opet\n *Total\n *Shell',
+      username: 'You, Burak',
+      duration: '2 days',
+      image: 'assets/home_assets/2020-porsche-taycan.jpg'),
+  HomeModel(
+    title: 'Red Candles  🕯️️🍷',
+    description: '* Ikea',
+    username: 'you, Rachael',
+    duration: '4 days',
+  ),
+];
+//
+List<HomeModel> quantityList = [
+  HomeModel(
+      title: 'Company vehicle 🚙 ⛽️',
+      description: '* Opet\n *Total\n *Shell',
+      username: 'You, Emir',
+      duration: '20 days',
+      image: 'assets/home_assets/2020-porsche-taycan.jpg'),
+  HomeModel(
+      title: 'Company vehicle 🚙 ⛽️',
+      description: '* SuperCharger\n *Tesla',
+      username: 'You, Mahmut',
+      duration: '30 days',
+      image: 'assets/home_assets/Tesla Model S Plaid evo 23.jpg'),
+];
+//
+List<HomeModel> oldList = [
+  HomeModel(
+    title: 'Red Candles  🕯️️🍷',
+    description: '* Ikea',
+    username: 'you, Rachael',
+    duration: '90 days',
+  ),
+  HomeModel(
+      title: 'Company vehicle 🚙 ⛽️',
+      description: '* Opet\n *Total\n *Shell',
+      username: 'You, Emir',
+      duration: '2 days',
+      image: 'assets/home_assets/2020-porsche-taycan.jpg'),
+  HomeModel(
+    title: 'Cat food  🐈 🍎',
+    description: ' * For Pamuk\n *Molly, Adult 4kg',
+    username: 'You',
+    duration: '86 days',
+  ),
+  HomeModel(
+      title: 'Company vehicle 🚙 ⛽️',
+      description: '* SuperCharger\n *Tesla',
+      username: 'You, Mahmut',
+      duration: '30 days',
+      image: 'assets/home_assets/Tesla Model S Plaid evo 23.jpg'),
+];

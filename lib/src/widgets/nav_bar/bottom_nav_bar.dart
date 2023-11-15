@@ -9,6 +9,7 @@ class BottomNavBar extends StatelessWidget {
       borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(25), topRight: Radius.circular(25)),
       child: BottomAppBar(
+        height: 86,
         color: const Color(0xFF60ABA0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
