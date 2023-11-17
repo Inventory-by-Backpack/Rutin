@@ -213,52 +213,57 @@ class CustomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10),
-      decoration: BoxDecoration(
-          image: data.image == null
-              ? null
-              : DecorationImage(
-                  opacity: 0.3,
-                  image: AssetImage(data.image.toString()),
-                  fit: BoxFit.cover,
-                ),
-          color: Colors.white,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 1,
-              blurRadius: 1,
-              offset: const Offset(0, 3),
+    return InkWell(
+      onTap: () {
+        Get.toNamed('/inventoryDetailPage');
+      },
+      child: Container(
+        margin: const EdgeInsets.symmetric(vertical: 10),
+        decoration: BoxDecoration(
+            image: data.image == null
+                ? null
+                : DecorationImage(
+                    opacity: 0.3,
+                    image: AssetImage(data.image.toString()),
+                    fit: BoxFit.cover,
+                  ),
+            color: Colors.white,
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 1,
+                blurRadius: 1,
+                offset: const Offset(0, 3),
+              ),
+            ],
+            borderRadius: BorderRadius.circular(10)),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(data.title, style: titleTextStyle),
+                  Text(data.description, style: subtitleTextStyle),
+                ],
+              ),
+            ),
+            const SizedBox(height: 10),
+            const Divider(height: 1),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 8),
+              child: Row(
+                children: [
+                  Text(data.username, style: bodyTextStyle),
+                  const Spacer(),
+                  Text(data.duration, style: bodyTextStyle),
+                ],
+              ),
             ),
           ],
-          borderRadius: BorderRadius.circular(10)),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(data.title, style: titleTextStyle),
-                Text(data.description, style: subtitleTextStyle),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          const Divider(height: 1),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 8),
-            child: Row(
-              children: [
-                Text(data.username, style: bodyTextStyle),
-                const Spacer(),
-                Text(data.duration, style: bodyTextStyle),
-              ],
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }
