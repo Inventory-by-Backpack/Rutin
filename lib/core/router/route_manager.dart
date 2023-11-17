@@ -1,5 +1,5 @@
 import 'package:get/route_manager.dart';
-import 'package:inventory/src/screen/welcome/register/register.dart';
+import 'package:inventory/src/screen/welcome/register/all_page_selections/on_borading_page.dart';
 
 import '../../src/screen/home/home_screen.dart';
 import '../../src/screen/home/inventory_detail.dart';
@@ -7,6 +7,7 @@ import '../../src/screen/welcome/forgot_pass.dart';
 import '../../src/screen/welcome/login/login.dart';
 import '../../src/screen/network/network_screen.dart';
 import '../../src/screen/splash/splash_page.dart';
+import '../../src/screen/welcome/register/register.dart';
 import '../../src/screen/welcome/welcome_page.dart';
 
 class RouteManagement {
@@ -29,6 +30,10 @@ appRoute() => [
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(
           name: '/registerPage',
+          page: () => const RegisterPage(),
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/onBoardingPage',
           page: () => const OnBoardingPage(),
           transitionDuration: const Duration(milliseconds: 500)),
       GetPage(

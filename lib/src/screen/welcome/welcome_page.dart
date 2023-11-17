@@ -58,7 +58,7 @@ class WelcomePage extends StatelessWidget {
                       MyElevatedButton(
                           string: 'Get Started',
                           onPressed: () {
-                            Get.toNamed('/registerPage');
+                            Get.toNamed('/onBoardingPage');
                           }),
                       const SizedBox(height: 10),
                       // Buton ile metin arasındaki boşluk
