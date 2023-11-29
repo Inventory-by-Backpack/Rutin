@@ -4,7 +4,7 @@ class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
 
   @override
-  _BottomNavBarState createState() => _BottomNavBarState();
+  State<BottomNavBar> createState() => _BottomNavBarState();
 }
 
 class _BottomNavBarState extends State<BottomNavBar> {
@@ -24,13 +24,13 @@ class _BottomNavBarState extends State<BottomNavBar> {
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             _buildNavItem('Home', Icons.home, 0, () {
-              _navigateToPage('/inventoryDetailPage');
+              _navigateToPage('/homePage');
             }),
             _buildNavItem('Plan', Icons.calendar_today_rounded, 1, () {
               _navigateToPage('/forgotPasswordPage');
             }),
             _buildNavItem('Add', Icons.add, 2, () {
-              _navigateToPage('/inventoryDetailPage');
+              _navigateToPage('/addRutinPage');
             }),
             _buildNavItem('Profile', Icons.person, 3, () {
               _navigateToPage('/forgotPasswordPage');
@@ -51,23 +51,25 @@ class _BottomNavBarState extends State<BottomNavBar> {
 
     return GestureDetector(
       onTap: () {
-        setState(() {
-          _selectedIndex = index;
-        });
-        onPressed();
+        if (!isSelected) {
+          setState(() {
+            _selectedIndex = index;
+          });
+          onPressed();
+        }
       },
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           Container(
-              margin: const EdgeInsets.only(bottom: 4),
-              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-              decoration: BoxDecoration(
-                color:
-                    isSelected ? const Color(0xFF519087) : Colors.transparent,
-                borderRadius: BorderRadius.circular(25),
-              ),
-              child: Icon(icon, color: color)),
+            margin: const EdgeInsets.only(bottom: 4),
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            decoration: BoxDecoration(
+              color: isSelected ? const Color(0xFF519087) : Colors.transparent,
+              borderRadius: BorderRadius.circular(25),
+            ),
+            child: Icon(icon, color: color),
+          ),
           Text(
             label,
             style: TextStyle(

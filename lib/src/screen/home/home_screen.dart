@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/model/home/home_model.dart';
 import '../../widgets/app_background.dart';
@@ -46,10 +47,7 @@ class HomePage extends StatelessWidget {
         fontFamily: 'Poppins',
         fontWeight: FontWeight.w700,
       ),
-      indicator: BoxDecoration(
-        borderRadius: BorderRadius.circular(10),
-        color: Colors.transparent,
-      ),
+      indicator: const BoxDecoration(color: Colors.transparent),
       tabs: [
         Tab(text: 'old'.tr),
         Tab(text: 'quanitly'.tr),
@@ -97,24 +95,20 @@ class CyclicalWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleTextStyle = TextStyle(
-      color: Color(0xFF519086),
-      fontSize: 14,
-      fontFamily: 'Poppins',
+    final titleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
+      fontSize: 12,
       fontWeight: FontWeight.w600,
     );
 
-    const subtitleTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final subtitleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w500,
     );
-
-    const bodyTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final bodyTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w400,
     );
 
@@ -132,24 +126,21 @@ class QuantityWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleTextStyle = TextStyle(
-      color: Color(0xFF519086),
-      fontSize: 14,
-      fontFamily: 'Poppins',
+    final titleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
+      fontSize: 12,
       fontWeight: FontWeight.w600,
     );
 
-    const subtitleTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final subtitleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w500,
     );
 
-    const bodyTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final bodyTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w400,
     );
 
@@ -167,24 +158,20 @@ class OldWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const titleTextStyle = TextStyle(
-      color: Color(0xFF519086),
-      fontSize: 14,
-      fontFamily: 'Poppins',
+    final titleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
+      fontSize: 12,
       fontWeight: FontWeight.w600,
     );
 
-    const subtitleTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final subtitleTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w500,
     );
-
-    const bodyTextStyle = TextStyle(
-      color: Color(0xFF519086),
+    final bodyTextStyle = GoogleFonts.poppins(
+      color: const Color(0xFF519086),
       fontSize: 12,
-      fontFamily: 'Poppins',
       fontWeight: FontWeight.w400,
     );
 
@@ -236,7 +223,7 @@ class CustomCard extends StatelessWidget {
                 offset: const Offset(0, 3),
               ),
             ],
-            borderRadius: BorderRadius.circular(10)),
+            borderRadius: BorderRadius.circular(16)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -252,14 +239,23 @@ class CustomCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             const Divider(height: 1),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              child: Row(
-                children: [
-                  Text(data.username, style: bodyTextStyle),
-                  const Spacer(),
-                  Text(data.duration, style: bodyTextStyle),
-                ],
+            Container(
+              height: 35,
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              clipBehavior: Clip.antiAlias,
+              decoration: BoxDecoration(
+                color: const Color(0xFFF7F7F7),
+                borderRadius: BorderRadius.circular(16),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                child: Row(
+                  children: [
+                    Text(data.username, style: bodyTextStyle),
+                    const Spacer(),
+                    Text(data.duration, style: bodyTextStyle),
+                  ],
+                ),
               ),
             ),
           ],

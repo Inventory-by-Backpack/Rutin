@@ -1,6 +1,7 @@
 import 'package:get/route_manager.dart';
 import 'package:inventory/src/screen/welcome/register/all_page_selections/on_borading_page.dart';
 
+import '../../src/screen/home/add_rutin.dart';
 import '../../src/screen/home/home_screen.dart';
 import '../../src/screen/home/inventory_detail.dart';
 import '../../src/screen/welcome/forgot_pass.dart';
@@ -51,5 +52,9 @@ appRoute() => [
       GetPage(
           name: '/inventoryDetailPage',
           page: () => const InventoryDetail(),
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/addRutinPage',
+          page: () => const AddRutinPage(),
           transitionDuration: const Duration(milliseconds: 500)),
     ];
