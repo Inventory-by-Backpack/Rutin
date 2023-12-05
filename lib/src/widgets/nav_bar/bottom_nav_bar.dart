@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../../screen/home/add_rutin.dart';
+import '../../screen/home/home_screen.dart';
 
 class BottomNavBar extends StatefulWidget {
   const BottomNavBar({Key? key}) : super(key: key);
@@ -10,82 +12,44 @@ class BottomNavBar extends StatefulWidget {
 class _BottomNavBarState extends State<BottomNavBar> {
   int _selectedIndex = 0;
 
+  static const labels = ['Home', 'Plan', 'Add', 'Profile', 'Settings'];
+  static const icons = [
+    Icons.home,
+    Icons.calendar_today_rounded,
+    Icons.add,
+    Icons.person,
+    Icons.settings
+  ];
+  final List<Widget> pages = const [
+    HomePage(),
+    HomePage(),
+    AddRutinPage(),
+    AddRutinPage(),
+    AddRutinPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: const BorderRadius.only(
-        topLeft: Radius.circular(25),
-        topRight: Radius.circular(25),
-      ),
-      child: BottomAppBar(
-        height: 86,
-        color: const Color(0xFF60ABA0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildNavItem('Home', Icons.home, 0, () {
-              _navigateToPage('/homePage');
-            }),
-            _buildNavItem('Plan', Icons.calendar_today_rounded, 1, () {
-              _navigateToPage('/forgotPasswordPage');
-            }),
-            _buildNavItem('Add', Icons.add, 2, () {
-              _navigateToPage('/addRutinPage');
-            }),
-            _buildNavItem('Profile', Icons.person, 3, () {
-              _navigateToPage('/forgotPasswordPage');
-            }),
-            _buildNavItem('Settings', Icons.settings, 4, () {
-              _navigateToPage('/inventoryDetailPage');
-            }),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildNavItem(
-      String label, IconData icon, int index, VoidCallback onPressed) {
-    final isSelected = index == _selectedIndex;
-    final color = isSelected ? Colors.white : Colors.white60;
-
-    return GestureDetector(
-      onTap: () {
-        if (!isSelected) {
+    return Scaffold(
+      body: pages[_selectedIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        showUnselectedLabels: true,
+        currentIndex: _selectedIndex,
+        onTap: (index) {
           setState(() {
             _selectedIndex = index;
           });
-          onPressed();
-        }
-      },
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Container(
-            margin: const EdgeInsets.only(bottom: 4),
-            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-            decoration: BoxDecoration(
-              color: isSelected ? const Color(0xFF519087) : Colors.transparent,
-              borderRadius: BorderRadius.circular(25),
-            ),
-            child: Icon(icon, color: color),
+        },
+        items: List.generate(
+          labels.length,
+          (i) => BottomNavigationBarItem(
+            tooltip: labels[i],
+            icon: Icon(icons[i]),
+            label: labels[i],
+            backgroundColor: const Color(0xFF519087),
           ),
-          Text(
-            label,
-            style: TextStyle(
-              fontSize: 12,
-              color: color,
-              fontFamily: 'Roboto',
-              fontWeight: FontWeight.w600,
-              letterSpacing: 0.48,
-            ),
-          ),
-        ],
+        ),
       ),
     );
-  }
-
-  void _navigateToPage(String route) {
-    Navigator.pushNamed(context, route);
   }
 }

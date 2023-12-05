@@ -4,7 +4,6 @@ import 'package:google_fonts/google_fonts.dart';
 
 import '../../../core/model/home/home_model.dart';
 import '../../widgets/app_background.dart';
-import '../../widgets/nav_bar/bottom_nav_bar.dart';
 import '../../widgets/padding/padding_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -18,7 +17,6 @@ class HomePage extends StatelessWidget {
         initialIndex: 1,
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          bottomNavigationBar: const BottomNavBar(),
           appBar: tabBar(),
           body: body(),
         ),
