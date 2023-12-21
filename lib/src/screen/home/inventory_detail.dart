@@ -1,6 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:inventory/src/widgets/custom_appbar.dart';
 
 import '../../widgets/padding/padding_widget.dart';
 
@@ -10,9 +11,8 @@ class InventoryDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Inventory Detail'),
-        ),
+        appBar:
+            const CustomAppBar(title: 'Inventory Detail', isBackButton: true),
         body: body());
   }
 

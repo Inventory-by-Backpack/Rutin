@@ -51,6 +51,7 @@ class LoginPage extends StatelessWidget {
                     AuthTextWidget(text: 'password'.tr),
                     const SizedBox(height: 15),
                     const MyTextFormField(
+
                         hintText: '*****',
                         inputType: TextInputType.visiblePassword,
                         privacy: true),
