@@ -1,8 +1,10 @@
 import 'package:get/route_manager.dart';
+import 'package:inventory/src/screen/home/profile.dart';
 import 'package:inventory/src/screen/welcome/register/all_page_selections/on_borading_page.dart';
 
 import '../../src/screen/home/add_rutin.dart';
 import '../../src/screen/home/inventory_detail.dart';
+import '../../src/screen/home/plan_scereen.dart';
 import '../../src/screen/welcome/forgot_pass.dart';
 import '../../src/screen/welcome/login/login.dart';
 import '../../src/screen/network/network_screen.dart';
@@ -56,5 +58,13 @@ appRoute() => [
       GetPage(
           name: '/addRutinPage',
           page: () => const AddRutinPage(),
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/planScreen',
+          page: () => const PlanScreen(),
+          transitionDuration: const Duration(milliseconds: 500)),
+      GetPage(
+          name: '/profilePage',
+          page: () => const ProfilePage(),
           transitionDuration: const Duration(milliseconds: 500)),
     ];

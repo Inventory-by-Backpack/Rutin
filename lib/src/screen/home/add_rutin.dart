@@ -154,32 +154,36 @@ class AddRutinPage extends StatelessWidget {
     );
   }
 
-  Container customContainer2(int index) {
-    return Container(
-      decoration: BoxDecoration(
-        color: const Color(0xFFD3FCF6),
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.25),
-            blurRadius: 4,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
-      child: Center(
-          child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(
-            icon[index],
-            color: const Color(0xFF519087),
-          ),
-          const SizedBox(width: 10),
-          Text(icerik[index], style: poppinsStyle),
-        ],
-      )),
-    );
+  Widget customContainer2(int index) {
+    return Builder(builder: (context) {
+      return Container(
+        decoration: BoxDecoration(
+          color: const Color(0xFFD3FCF6),
+          borderRadius: BorderRadius.circular(16),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.25),
+              blurRadius: 4,
+              offset: const Offset(0, 4),
+            ),
+          ],
+        ),
+        child: Center(
+            child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Expanded(
+              child: Icon(
+                icon[index],
+                color: const Color(0xFF519087),
+              ),
+            ),
+            SizedBox(width: MediaQuery.of(context).size.width * .01),
+            Expanded(child: Text(icerik[index], style: poppinsStyle)),
+          ],
+        )),
+      );
+    });
   }
 
   Padding bosluk(BuildContext context) => Padding(

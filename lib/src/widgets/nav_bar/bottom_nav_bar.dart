@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:inventory/src/screen/home/plan_scereen.dart';
+import 'package:inventory/src/screen/home/profile.dart';
 import '../../screen/home/add_rutin.dart';
 import '../../screen/home/home_screen.dart';
 
@@ -22,9 +24,9 @@ class _BottomNavBarState extends State<BottomNavBar> {
   ];
   final List<Widget> pages = const [
     HomePage(),
-    HomePage(),
+    PlanScreen(),
     AddRutinPage(),
-    AddRutinPage(),
+    ProfilePage(),
     AddRutinPage(),
   ];
 
